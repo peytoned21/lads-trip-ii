@@ -108,7 +108,7 @@
      PHOTO HERO — parallax background
   ════════════════════════════════════════ */
   .photo-hero {
-    min-height: 100vh;
+    min-height: 90vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -116,20 +116,51 @@
     overflow: hidden;
   }
 
+  /* Subtle noise texture overlay for depth on solid color heroes */
+  .photo-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Large Roman numeral watermark on hero */
+  .photo-hero-watermark {
+    position: absolute;
+    bottom: -0.15em;
+    right: -0.05em;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(180px, 35vw, 380px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 1;
+    letter-spacing: -0.04em;
+    user-select: none;
+  }
+
+  /* Thin top accent line on each hero */
+  .photo-hero-accent-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--tab-accent, var(--gold));
+    z-index: 3;
+    opacity: 0.7;
+  }
+
   .photo-hero-bg {
     position: absolute;
-    inset: -10% 0;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    animation: kenBurns 20s ease-in-out infinite alternate;
+    inset: 0;
     z-index: 0;
   }
 
-  @keyframes kenBurns {
-    from { transform: scale(1.0) translate(0, 0); }
-    to   { transform: scale(1.08) translate(-1%, -1%); }
-  }
 
   .photo-hero-overlay {
     position: absolute;
@@ -139,7 +170,7 @@
 
   .photo-hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     padding: 60px 40px 80px;
     max-width: 800px;
   }
@@ -212,7 +243,7 @@
     position: absolute;
     bottom: 28px;
     right: 40px;
-    z-index: 2;
+    z-index: 3;
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.25em;
@@ -450,8 +481,8 @@
   .moment-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1px;
-    background: rgba(0,0,0,0.07);
+    gap: 2px;
+    background: rgba(0,0,0,0.05);
     margin-bottom: 80px;
   }
 
@@ -925,7 +956,7 @@
     opacity: 0.7;
   }
 
-  .big-number-section { padding: 80px 32px; text-align: center; background: white; }
+  .big-number-section { padding: 80px 32px; text-align: center; background: var(--sand); }
 
   .big-number-grid {
     display: flex;
@@ -958,6 +989,54 @@
   }
 
   .big-number-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ════════════════════════════════════════
+     PER-TAB COLOR IDENTITIES
+     Each tab overrides accent colors via
+     scoped CSS custom properties so that
+     em, tags, dividers, dots, etc all pick
+     up the right accent without inline styles
+  ════════════════════════════════════════ */
+
+  /* OBX — Atlantic navy + gold (matches global defaults, no override needed) */
+  #tab-obx { --tab-accent: #c8a96e; --tab-accent-rgb: 200,169,110; --tab-dark: #0a1e32; --tab-mid: #1a4a6b; }
+
+  /* Myrtle — Lowcountry green */
+  #tab-myrtle { --tab-accent: #7ab648; --tab-accent-rgb: 122,182,72; --tab-dark: #1a2e1a; --tab-mid: #2d5a20; }
+
+  /* Isle of Palms — Palmetto gold/brown */
+  #tab-iop { --tab-accent: #c8905a; --tab-accent-rgb: 200,144,90; --tab-dark: #2a1f14; --tab-mid: #5a3a20; }
+
+  /* Hilton Head — Harbour Town red/gold */
+  #tab-hhh { --tab-accent: #c8a050; --tab-accent-rgb: 200,160,80; --tab-dark: #0e1f2e; --tab-mid: #1e3a50; }
+
+  /* St. Simons — Spanish moss sage */
+  #tab-ssi { --tab-accent: #6aaa6a; --tab-accent-rgb: 106,170,106; --tab-dark: #0d2010; --tab-mid: #1a4020; }
+
+  /* Gulf Shores — Gulf sunset orange */
+  #tab-gulfshorii { --tab-accent: #ff7a30; --tab-accent-rgb: 255,122,48; --tab-dark: #1a0a00; --tab-mid: #3a1a00; }
+
+  /* Apply tab accent to shared components */
+  .tab-panel .section-title em { color: var(--tab-accent, var(--wave)); }
+  .tab-panel .section-tag { color: var(--tab-accent, var(--gold)); }
+  .tab-panel .section-divider-text { color: var(--tab-accent, var(--gold)); }
+  .tab-panel .section-divider::before,
+  .tab-panel .section-divider::after { background: linear-gradient(to right, transparent, var(--tab-accent, var(--gold)), transparent); }
+  .tab-panel .itinerary-header { color: var(--tab-accent, var(--gold)); }
+  .tab-panel .itinerary-header::after { background: linear-gradient(to right, rgba(var(--tab-accent-rgb, 200,169,110), 0.4), transparent); }
+  .tab-panel .itinerary-day::before { background: rgba(var(--tab-accent-rgb, 200,169,110), 0.2); }
+  .tab-panel .itinerary-day-label { color: var(--tab-accent, var(--gold)); }
+  .tab-panel .itinerary-item::before { background: var(--tab-accent, var(--gold)); outline-color: rgba(var(--tab-accent-rgb, 200,169,110), 0.4); }
+  .tab-panel .tag { background: rgba(var(--tab-accent-rgb, 46,125,168), 0.08); color: var(--tab-mid, var(--ocean-mid)); border-color: rgba(var(--tab-accent-rgb, 46,125,168), 0.25); }
+  .tab-panel .pull-quote { border-left-color: var(--tab-accent, var(--gold)); background: rgba(var(--tab-accent-rgb, 200,169,110), 0.05); }
+  .tab-panel .prose-section::before { background: linear-gradient(to bottom, transparent, var(--tab-accent, var(--gold))); }
+  .tab-panel .moments-label { color: var(--tab-accent, var(--gold)); }
+  .tab-panel .moments-label::after { background: linear-gradient(to right, rgba(var(--tab-accent-rgb, 200,169,110), 0.4), transparent); }
+  .tab-panel .big-number { color: var(--tab-dark, var(--deep-ocean)); }
+  .tab-panel .spec-value { color: var(--tab-mid, var(--ocean-mid)); }
+  .tab-panel .golf-card.top-pick { border-color: var(--tab-accent, var(--gold)); }
+  .tab-panel .golf-card.top-pick::before { color: var(--tab-accent, var(--gold)); }
+  .tab-panel .golf-rating { color: var(--tab-accent, var(--gold)); }
 </style>
 </head>
 <body>
@@ -1116,13 +1195,13 @@
 ══════════════════════════════════ -->
 <div id="tab-obx" class="tab-panel">
 
-  <!-- PHOTO HERO -->
   <div class="photo-hero">
-    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=80');"></div>
-    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(10,30,50,0.92) 0%, rgba(10,30,50,0.55) 50%, rgba(10,30,50,0.2) 100%);"></div>
+    <div class="photo-hero-accent-line"></div>
+    <div class="photo-hero-bg" style="background: linear-gradient(160deg, #0a1e32 0%, #1a4a6b 50%, #0d2b3e 100%);"></div>
+    <span class="photo-hero-watermark">II</span>
     <div class="photo-hero-content">
-      <p class="photo-hero-eyebrow" style="color: var(--gold);">A Declaration of Intent</p>
-      <h1 class="photo-hero-title">The Lads Trip <em style="color: var(--gold);">II</em></h1>
+      <p class="photo-hero-eyebrow" style="color:var(--tab-accent);">A Declaration of Intent</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:var(--tab-accent);">II</em></h1>
       <p class="photo-hero-sub">Outer Banks, North Carolina</p>
       <div class="photo-hero-meta">
         <div class="photo-hero-meta-item">
@@ -1154,9 +1233,9 @@
     <p>We are going. The group is getting bigger. The invitation is open. The only requirement is the same one it's always been: get in the car.</p>
   </section>
 
-  <div class="ocean-break">
+  <div class="ocean-break" style="background:#0a1e32;">
     <p class="ocean-break-text">"The years were not going to take this from them without a fight."</p>
-    <span class="ocean-break-attr">— The Lads Trip I, Gulf Shores, March 2026</span>
+    <span class="ocean-break-attr" style="color:#c8a96e;">— The Lads Trip I, Gulf Shores, March 2026</span>
   </div>
 
   <!-- ITINERARY -->
@@ -1436,11 +1515,12 @@
 <div id="tab-myrtle" class="tab-panel">
 
   <div class="photo-hero">
-    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1600&q=80');"></div>
-    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(15,35,15,0.93) 0%, rgba(15,35,15,0.55) 50%, rgba(15,35,15,0.2) 100%);"></div>
+    <div class="photo-hero-accent-line"></div>
+    <div class="photo-hero-bg" style="background: linear-gradient(160deg, #0f2310 0%, #1a3d1a 50%, #0a1a0a 100%);"></div>
+    <span class="photo-hero-watermark">III</span>
     <div class="photo-hero-content">
-      <p class="photo-hero-eyebrow" style="color: #a8c86e;">The Underdog Case</p>
-      <h1 class="photo-hero-title">The Lads Trip <em style="color: #a8c86e;">II</em></h1>
+      <p class="photo-hero-eyebrow" style="color:var(--tab-accent);">The Underdog Case</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:var(--tab-accent);">II</em></h1>
       <p class="photo-hero-sub">Myrtle Beach / Murrells Inlet, South Carolina</p>
       <div class="photo-hero-meta">
         <div class="photo-hero-meta-item">
@@ -1471,9 +1551,9 @@
     <p>The chaos isn't in the destination. It travels with us. Myrtle Beach will have its own version of all of it. It always does.</p>
   </section>
 
-  <div class="ocean-break" style="background: #1a2e1a;">
+  <div class="ocean-break" style="background:var(--tab-dark);">
     <p class="ocean-break-text" style="color: #f5f0e8;">"Eighty courses. Four days. Fifteen men who know exactly what they came for."</p>
-    <span class="ocean-break-attr" style="color: #a8c86e;">— The Case for Myrtle</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);">— The Case for Myrtle</span>
   </div>
 
   <!-- ITINERARY -->
@@ -1587,7 +1667,7 @@
   </div>
   <div class="cards-grid">
     <div class="house-card">
-      <span class="card-badge" style="background: #4a7c2f;">The Play</span>
+      <span class="card-badge" style="background:var(--tab-accent);">The Play</span>
       <div class="card-inner">
         <h3 class="card-name">Murrells Inlet Estate</h3>
         <p class="card-location">Murrells Inlet · Waterway Access · ~3 mi to Caledonia</p>
@@ -1613,11 +1693,11 @@
     <h2 class="section-title">The Golf Capital<br><em>of the World.</em><br>That's the actual nickname.</h2>
   </div>
   <div class="golf-grid">
-    <div class="golf-card" style="border-color: #4a7c2f; background: linear-gradient(135deg, white 0%, rgba(74,124,47,0.04) 100%);">
-      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#4a7c2f;text-transform:uppercase;margin-bottom:12px;">★ The One You Tell People About</p>
+    <div class="golf-card" style="border-color:var(--tab-accent); background: linear-gradient(135deg, white 0%, rgba(74,124,47,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--tab-accent);text-transform:uppercase;margin-bottom:12px;">★ The One You Tell People About</p>
       <p class="golf-name">Caledonia Golf &amp; Fish Club</p>
       <p class="golf-dist">~10 min · Pawleys Island</p>
-      <p class="golf-rating" style="color:#4a7c2f;">★★★★★ &nbsp; Top 100 Public · Golf Digest, Golf Magazine, Golfweek</p>
+      <p class="golf-rating" style="color:var(--tab-accent);">★★★★★ &nbsp; Top 100 Public · Golf Digest, Golf Magazine, Golfweek</p>
       <p class="golf-note">Century-old live oaks draped in Spanish moss lining the entrance. A finishing hole over water that people are still talking about on the drive home. On every major Top 100 list since 1994. The round that justifies the trip.</p>
     </div>
     <div class="golf-card">
@@ -1665,55 +1745,55 @@
     <h2 class="section-title">Easier to get to.<br><em>Cheaper to run.</em><br>More golf.</h2>
   </div>
   <div class="logistics-grid" style="padding-bottom: 40px;">
-    <div class="logistics-item" style="background: #1a2e1a;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">✈️</span>
       <span class="logistics-label">Fly Into</span>
-      <span class="logistics-value" style="color:#a8c86e;">MYR Direct</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">MYR Direct</span>
       <p class="logistics-sub">Myrtle Beach Intl.<br>Or Charlotte (CLT), Atlanta (ATL)</p>
     </div>
-    <div class="logistics-item" style="background: #1a2e1a;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🏌️</span>
       <span class="logistics-label">Golf</span>
-      <span class="logistics-value" style="color:#a8c86e;">80+ Courses</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">80+ Courses</span>
       <p class="logistics-sub">4 marquee rounds<br>All within 35 minutes</p>
     </div>
-    <div class="logistics-item" style="background: #1a2e1a;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">💰</span>
       <span class="logistics-label">Est. Cost</span>
-      <span class="logistics-value" style="color:#a8c86e;">~$750/person</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">~$750/person</span>
       <p class="logistics-sub">Shared tab, excl. golf<br>Priced to do it right, not impress.</p>
     </div>
-    <div class="logistics-item" style="background: #1a2e1a;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🦐</span>
       <span class="logistics-label">Seafood</span>
-      <span class="logistics-value" style="color:#a8c86e;">MarshWalk</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">MarshWalk</span>
       <p class="logistics-sub">Seven minutes from the house.<br>All of it fresh.</p>
     </div>
-    <div class="logistics-item" style="background: #1a2e1a;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🎰</span>
       <span class="logistics-label">The Bet</span>
-      <span class="logistics-value" style="color:#a8c86e;">TBD</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">TBD</span>
       <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
     </div>
-    <div class="logistics-item" style="background: #1a2e1a;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🌅</span>
       <span class="logistics-label">Vibe</span>
-      <span class="logistics-value" style="color:#a8c86e;">Earned, Not Pretended</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Earned, Not Pretended</span>
       <p class="logistics-sub">No irony required.<br>This is exactly what it is.</p>
     </div>
   </div>
 
-  <div class="ocean-break" style="background: #1a2e1a; padding: 60px 32px 40px;">
+  <div class="ocean-break" style="background:var(--tab-dark); padding: 60px 32px 40px;">
     <p class="ocean-break-text" style="color:#f5f0e8;">Myrtle Beach knows what it is. The question is whether you do.</p>
     <p class="ocean-break-text" style="color:#f5f0e8;margin-top:20px;font-size:clamp(18px,3vw,28px);">Eighty courses. Four days. Get in the car.</p>
-    <span class="ocean-break-attr" style="color:#a8c86e;margin-top:24px;display:block;">The Underdog Rests Its Case.</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);margin-top:24px;display:block;">The Underdog Rests Its Case.</span>
   </div>
 
-  <footer class="footer" style="background:#1a2e1a;">
+  <footer class="footer" style="background:var(--tab-dark);">
     <p class="footer-roman" style="-webkit-text-stroke:1px rgba(160,200,100,0.15);">III</p>
     <span class="footer-wave">⛳</span>
     <p class="footer-line">Eighty courses. One week. Fifteen men who know exactly what they came for.</p>
-    <p class="footer-meta" style="color:#a8c86e;">The Lads Trip II · Myrtle Beach · April 15–18, 2027</p>
+    <p class="footer-meta" style="color:var(--tab-accent);">The Lads Trip II · Myrtle Beach · April 15–18, 2027</p>
   </footer>
 
 </div><!-- /tab-myrtle -->
@@ -1725,11 +1805,12 @@
 <div id="tab-iop" class="tab-panel">
 
   <div class="photo-hero">
-    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1561132913-77c9c1dc5929?w=1600&q=80');"></div>
-    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(30,20,10,0.93) 0%, rgba(30,20,10,0.55) 50%, rgba(30,20,10,0.15) 100%);"></div>
+    <div class="photo-hero-accent-line"></div>
+    <div class="photo-hero-bg" style="background: linear-gradient(160deg, #1e1408 0%, #3a2510 50%, #2a1f14 100%);"></div>
+    <span class="photo-hero-watermark">IV</span>
     <div class="photo-hero-content">
-      <p class="photo-hero-eyebrow" style="color:#d4a96a;">The Civilized Option</p>
-      <h1 class="photo-hero-title">The Lads Trip <em style="color:#d4a96a;">II</em></h1>
+      <p class="photo-hero-eyebrow" style="color:var(--tab-accent);">The Civilized Option</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:var(--tab-accent);">II</em></h1>
       <p class="photo-hero-sub">Isle of Palms &nbsp;·&nbsp; Charleston, South Carolina</p>
       <div class="photo-hero-meta">
         <div class="photo-hero-meta-item">
@@ -1760,9 +1841,9 @@
     <p>That is what Charleston is for.</p>
   </section>
 
-  <div class="ocean-break" style="background:#2a1f14;">
+  <div class="ocean-break" style="background:var(--tab-dark);">
     <p class="ocean-break-text" style="color:#f5f0e8;">"Tom Fazio's first golf course design. The finishing hole looks at the Atlantic Ocean. He still says it's one of his favorites."</p>
-    <span class="ocean-break-attr" style="color:#d4a96a;">— Wild Dunes Links Course, Isle of Palms</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);">— Wild Dunes Links Course, Isle of Palms</span>
   </div>
 
   <!-- ITINERARY -->
@@ -1871,7 +1952,7 @@
   </div>
   <div class="cards-grid">
     <div class="house-card">
-      <span class="card-badge" style="background:#7a5c2e;">The Play</span>
+      <span class="card-badge" style="background:var(--tab-accent);">The Play</span>
       <div class="card-inner">
         <h3 class="card-name">Isle of Palms Oceanfront</h3>
         <p class="card-location">Isle of Palms · Wild Dunes Area · Beachfront</p>
@@ -1897,11 +1978,11 @@
     <h2 class="section-title">The Ryder Cup course.<br><em>Two PGA Championships.</em><br>This is the one.</h2>
   </div>
   <div class="golf-grid">
-    <div class="golf-card" style="border-color:#7a5c2e;background:linear-gradient(135deg,white 0%,rgba(122,92,46,0.04) 100%);">
-      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#7a5c2e;text-transform:uppercase;margin-bottom:12px;">★ The Bucket List Round</p>
+    <div class="golf-card" style="border-color:var(--tab-accent);background:linear-gradient(135deg,white 0%,rgba(122,92,46,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--tab-accent);text-transform:uppercase;margin-bottom:12px;">★ The Bucket List Round</p>
       <p class="golf-name">The Ocean Course at Kiawah Island</p>
       <p class="golf-dist">~45 min · Kiawah Island</p>
-      <p class="golf-rating" style="color:#7a5c2e;">★★★★★ &nbsp; 1991 Ryder Cup · 2012 &amp; 2021 PGA Championship · Pete Dye</p>
+      <p class="golf-rating" style="color:var(--tab-accent);">★★★★★ &nbsp; 1991 Ryder Cup · 2012 &amp; 2021 PGA Championship · Pete Dye</p>
       <p class="golf-note">Ten of eighteen holes with Atlantic views. Natural dunes, sea oats, marshland, water. The par-3 17th over water. Caddie required. Phil Mickelson won the 2021 PGA here at age 50. This is the round you tell your grandchildren about.</p>
     </div>
     <div class="golf-card">
@@ -1949,61 +2030,61 @@
     <h2 class="section-title">The island. The city.<br><em>The courses.</em><br>Four days.</h2>
   </div>
   <div class="logistics-grid" style="padding-bottom: 40px;">
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🗓</span>
       <span class="logistics-label">When</span>
-      <span class="logistics-value" style="color:#d4a96a;">Apr 15–18</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Apr 15–18</span>
       <p class="logistics-sub">Thursday arrival<br>Sunday/Monday departure</p>
     </div>
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">✈️</span>
       <span class="logistics-label">Fly Into</span>
-      <span class="logistics-value" style="color:#d4a96a;">CHS Direct</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">CHS Direct</span>
       <p class="logistics-sub">Charleston Intl.<br>30 min to the island</p>
     </div>
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🏌️</span>
       <span class="logistics-label">Golf</span>
-      <span class="logistics-value" style="color:#d4a96a;">4 Courses</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">4 Courses</span>
       <p class="logistics-sub">On-island + Kiawah<br>One bucket-list round</p>
     </div>
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🌆</span>
       <span class="logistics-label">City Night</span>
-      <span class="logistics-value" style="color:#d4a96a;">Charleston</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Charleston</span>
       <p class="logistics-sub">Best city in America.<br>30 min each way.</p>
     </div>
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">💰</span>
       <span class="logistics-label">Est. Cost</span>
-      <span class="logistics-value" style="color:#d4a96a;">~$1,100–1,300</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">~$1,100–1,300</span>
       <p class="logistics-sub">Shared tab, excl. golf<br>Ocean Course adds ~$300 on top</p>
     </div>
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🦪</span>
       <span class="logistics-label">Seafood</span>
-      <span class="logistics-value" style="color:#d4a96a;">Low Country</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Low Country</span>
       <p class="logistics-sub">Shrimp and grits.<br>Oysters on King Street.</p>
     </div>
-    <div class="logistics-item" style="background:#2a1f14;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🎰</span>
       <span class="logistics-label">The Bet</span>
-      <span class="logistics-value" style="color:#d4a96a;">TBD</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">TBD</span>
       <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
     </div>
   </div>
 
-  <div class="ocean-break" style="background:#2a1f14;padding:60px 32px 40px;">
+  <div class="ocean-break" style="background:var(--tab-dark);padding:60px 32px 40px;">
     <p class="ocean-break-text" style="color:#f5f0e8;">Isle of Palms is the trip you do when you decide, collectively, that you've earned something worth remembering for a long time.</p>
     <p class="ocean-break-text" style="color:#f5f0e8;margin-top:20px;font-size:clamp(18px,3vw,28px);">The Ocean Course is the argument.</p>
-    <span class="ocean-break-attr" style="color:#d4a96a;margin-top:24px;display:block;">The Civilized Option Rests Its Case.</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);margin-top:24px;display:block;">The Civilized Option Rests Its Case.</span>
   </div>
 
-  <footer class="footer" style="background:#2a1f14;">
+  <footer class="footer" style="background:var(--tab-dark);">
     <p class="footer-roman" style="-webkit-text-stroke:1px rgba(210,175,120,0.15);">IV</p>
     <span class="footer-wave">🌴</span>
     <p class="footer-line">The Ryder Cup. The PGA Championship. The Atlantic. The city. The porch. The round you call your father about.</p>
-    <p class="footer-meta" style="color:#d4a96a;">The Lads Trip II · Isle of Palms · April 15–18, 2027</p>
+    <p class="footer-meta" style="color:var(--tab-accent);">The Lads Trip II · Isle of Palms · April 15–18, 2027</p>
   </footer>
 
 </div><!-- /tab-iop -->
@@ -2015,11 +2096,12 @@
 <div id="tab-hhh" class="tab-panel">
 
   <div class="photo-hero">
-    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1600&q=80');"></div>
-    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(8,20,30,0.94) 0%, rgba(8,20,30,0.55) 50%, rgba(8,20,30,0.15) 100%);"></div>
+    <div class="photo-hero-accent-line"></div>
+    <div class="photo-hero-bg" style="background: linear-gradient(160deg, #08141e 0%, #0e2233 50%, #1a3344 100%);"></div>
+    <span class="photo-hero-watermark">V</span>
     <div class="photo-hero-content">
-      <p class="photo-hero-eyebrow" style="color:#c8b46e;">The Golf Island</p>
-      <h1 class="photo-hero-title">The Lads Trip <em style="color:#c8b46e;">II</em></h1>
+      <p class="photo-hero-eyebrow" style="color:var(--tab-accent);">The Golf Island</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:var(--tab-accent);">II</em></h1>
       <p class="photo-hero-sub">Hilton Head Island, South Carolina</p>
       <div class="photo-hero-meta">
         <div class="photo-hero-meta-item">
@@ -2050,9 +2132,9 @@
     <p>Hilton Head is a barrier island with 12 miles of beach, 30 championship courses, and a nightlife scene built for visitors who know what they want. The question is whether watching a PGA Tour event is a reason to go or a reason to adjust the dates. That is the decision this pitch is asking you to make.</p>
   </section>
 
-  <div class="ocean-break" style="background:#0e1f2e;">
+  <div class="ocean-break" style="background:var(--tab-dark);">
     <p class="ocean-break-text" style="color:#f5f0e8;">"Ranked #2 among all PGA Tour courses by Golf Digest. Behind only Augusta National. The island has been ready for us since 1969."</p>
-    <span class="ocean-break-attr" style="color:#c8b46e;">— Harbour Town Golf Links · Hilton Head Island</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);">— Harbour Town Golf Links · Hilton Head Island</span>
   </div>
 
   <!-- ITINERARY -->
@@ -2142,7 +2224,7 @@
   <!-- Tournament callout -->
   <div style="max-width:760px;margin:0 auto;padding:0 24px 60px;background:var(--sand);">
     <div style="border:1px solid rgba(200,180,110,0.4);padding:28px 32px;background:rgba(200,180,110,0.05);">
-      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.28em;color:#c8b46e;text-transform:uppercase;margin-bottom:12px;">⚑ Tournament Week — What It Means</p>
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.28em;color:var(--tab-accent);text-transform:uppercase;margin-bottom:12px;">⚑ Tournament Week — What It Means</p>
       <p style="font-size:15px;line-height:1.75;color:#2a2a2a;margin-bottom:12px;">The RBC Heritage runs April 14–20, 2027 (est.). Our dates April 15–18 overlap Thursday through Sunday — the competitive rounds. <strong>Harbour Town is closed to public play during the event.</strong> Sea Pines has restricted vehicle access. Rental rates on the island are at peak pricing.</p>
       <p style="font-size:15px;line-height:1.75;color:#2a2a2a;"><strong>What you get instead:</strong> Tickets to watch a PGA Tour Signature Event. Three other strong courses easily accessible. The Salty Dog, 12 miles of beach, and the full island operating normally. This is a tradeoff, not a dealbreaker.</p>
     </div>
@@ -2175,7 +2257,7 @@
   </div>
   <div class="cards-grid">
     <div class="house-card">
-      <span class="card-badge" style="background:#5a7a3a;">The Play</span>
+      <span class="card-badge" style="background:var(--tab-mid);">The Play</span>
       <div class="card-inner">
         <h3 class="card-name">Palmetto Dunes / Forest Beach House</h3>
         <p class="card-location">Hilton Head Island · Oceanfront · Pool</p>
@@ -2200,11 +2282,11 @@
     <h2 class="section-title">The PGA Tour<br>is playing<br><em>while we are here.</em></h2>
   </div>
   <div class="golf-grid">
-    <div class="golf-card" style="border-color:#c8b46e;background:linear-gradient(135deg,white 0%,rgba(200,180,110,0.04) 100%);">
-      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#c8b46e;text-transform:uppercase;margin-bottom:12px;">★ Watch It, Don't Play It</p>
+    <div class="golf-card" style="border-color:var(--tab-accent);background:linear-gradient(135deg,white 0%,rgba(var(--tab-accent-rgb),0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--tab-accent);text-transform:uppercase;margin-bottom:12px;">★ Watch It, Don't Play It</p>
       <p class="golf-name">Harbour Town Golf Links</p>
       <p class="golf-dist">Sea Pines Resort · Tournament Week</p>
-      <p class="golf-rating" style="color:#c8b46e;">★★★★★ &nbsp; Pete Dye + Jack Nicklaus · #2 PGA Tour Course, Golf Digest</p>
+      <p class="golf-rating" style="color:var(--tab-accent);">★★★★★ &nbsp; Pete Dye + Jack Nicklaus · #2 PGA Tour Course, Golf Digest</p>
       <p class="golf-note">Closed to public play during RBC Heritage. But we would be there watching it. The par-3 17th over Calibogue Sound. The defending champion fires a cannon shot into the sound to open the tournament. Buy tickets. That is not nothing.</p>
     </div>
     <div class="golf-card">
@@ -2252,61 +2334,61 @@
     <h2 class="section-title">The Golf Island.<br><em>Tournament week.</em><br>Eyes open.</h2>
   </div>
   <div class="logistics-grid" style="padding-bottom:40px;">
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🗓</span>
       <span class="logistics-label">When</span>
-      <span class="logistics-value" style="color:#c8b46e;">Apr 15–18</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Apr 15–18</span>
       <p class="logistics-sub">RBC Heritage runs Apr 14–20.<br>We overlap Fri–Tue.</p>
     </div>
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">✈️</span>
       <span class="logistics-label">Fly Into</span>
-      <span class="logistics-value" style="color:#c8b46e;">HHH or SAV</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">HHH or SAV</span>
       <p class="logistics-sub">Hilton Head direct<br>or Savannah (50 min drive)</p>
     </div>
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🏌️</span>
       <span class="logistics-label">Golf</span>
-      <span class="logistics-value" style="color:#c8b46e;">4 Courses</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">4 Courses</span>
       <p class="logistics-sub">3 at Palmetto Dunes + Crescent Pointe<br>Harbour Town: watch, not play</p>
     </div>
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🎟️</span>
       <span class="logistics-label">Tournament</span>
-      <span class="logistics-value" style="color:#c8b46e;">Optional</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Optional</span>
       <p class="logistics-sub">Buy tickets, watch a round.<br>Or skip it entirely.</p>
     </div>
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">💰</span>
       <span class="logistics-label">Est. Cost</span>
-      <span class="logistics-value" style="color:#c8b46e;">~$950–1,100</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">~$950–1,100</span>
       <p class="logistics-sub">Shared tab, excl. golf<br>Tournament week premium on rentals</p>
     </div>
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🦀</span>
       <span class="logistics-label">Seafood</span>
-      <span class="logistics-value" style="color:#c8b46e;">The Salty Dog</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">The Salty Dog</span>
       <p class="logistics-sub">South Beach Marina.<br>Since 1987. Still right.</p>
     </div>
-    <div class="logistics-item" style="background:#0e1f2e;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🎰</span>
       <span class="logistics-label">The Bet</span>
-      <span class="logistics-value" style="color:#c8b46e;">TBD</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">TBD</span>
       <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
     </div>
   </div>
 
-  <div class="ocean-break" style="background:#0e1f2e;padding:60px 32px 40px;">
+  <div class="ocean-break" style="background:var(--tab-dark);padding:60px 32px 40px;">
     <p class="ocean-break-text" style="color:#f5f0e8;">Hilton Head has been the Golf Island since 1969. Our dates land on tournament week. That is a complication and an opportunity in equal measure.</p>
     <p class="ocean-break-text" style="color:#f5f0e8;margin-top:20px;font-size:clamp(18px,3vw,28px);">Get your plaid on.</p>
-    <span class="ocean-break-attr" style="color:#c8b46e;margin-top:24px;display:block;">The Golf Island Rests Its Case.</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);margin-top:24px;display:block;">The Golf Island Rests Its Case.</span>
   </div>
 
-  <footer class="footer" style="background:#0e1f2e;">
+  <footer class="footer" style="background:var(--tab-dark);">
     <p class="footer-roman" style="-webkit-text-stroke:1px rgba(200,180,110,0.15);">V</p>
     <span class="footer-wave">🏌️</span>
     <p class="footer-line">Pete Dye. Jack Nicklaus. Arnold Palmer. The RBC Heritage. The Salty Dog. The island has been ready since 1969.</p>
-    <p class="footer-meta" style="color:#c8b46e;">The Lads Trip II · Hilton Head Island · April 15–18, 2027</p>
+    <p class="footer-meta" style="color:var(--tab-accent);">The Lads Trip II · Hilton Head Island · April 15–18, 2027</p>
   </footer>
 
 </div><!-- /tab-hhh -->
@@ -2318,11 +2400,12 @@
 <div id="tab-ssi" class="tab-panel">
 
   <div class="photo-hero">
-    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1441804763650-de5949f34fca?w=1600&q=80');"></div>
-    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(10,25,15,0.95) 0%, rgba(10,25,15,0.6) 50%, rgba(10,25,15,0.15) 100%);"></div>
+    <div class="photo-hero-accent-line"></div>
+    <div class="photo-hero-bg" style="background: linear-gradient(160deg, #0a1910 0%, #152b18 50%, #0d2010 100%);"></div>
+    <span class="photo-hero-watermark">VI</span>
     <div class="photo-hero-content">
-      <p class="photo-hero-eyebrow" style="color: #8fbc8f;">The Home Game</p>
-      <h1 class="photo-hero-title">The Lads Trip <em style="color: #8fbc8f;">II</em></h1>
+      <p class="photo-hero-eyebrow" style="color:var(--tab-accent);">The Home Game</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:var(--tab-accent);">II</em></h1>
       <p class="photo-hero-sub">St. Simons Island, Georgia</p>
       <div class="photo-hero-meta">
         <div class="photo-hero-meta-item">
@@ -2356,9 +2439,9 @@
     <p>There is no Flora-Bama equivalent on St. Simons. There is the Village, which is a collection of bars and restaurants around the pier that stays open late and has the right energy. There is Crab Daddy's, which is the answer to every seafood question. There is the beach at East Beach, which is uncrowded and correct. And there is the particular energy of men returning to a place where things went wrong and deciding, collectively, that this time will be different. It probably won't be different. That is also fine.</p>
   </section>
 
-  <div class="ocean-break" style="background: #0d2010;">
+  <div class="ocean-break" style="background:var(--tab-dark);">
     <p class="ocean-break-text" style="color: #f5f0e8;">"Peyton got arrested. Mack almost drowned. Yang was a Rubik's cube. We're going back."</p>
-    <span class="ocean-break-attr" style="color: #8fbc8f;">— The Complete Institutional Record of the Group's Prior Visit</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);">— The Complete Institutional Record of the Group's Prior Visit</span>
   </div>
 
   <!-- ITINERARY -->
@@ -2472,7 +2555,7 @@
   </div>
   <div class="cards-grid">
     <div class="house-card">
-      <span class="card-badge" style="background: #3a6b3a;">Top Shelf</span>
+      <span class="card-badge" style="background:var(--tab-mid);">Top Shelf</span>
       <div class="card-inner">
         <h3 class="card-name">VRBO #1708861</h3>
         <p class="card-location">St. Simons Island · ~$3,526/night · Large Group</p>
@@ -2490,7 +2573,7 @@
       </div>
     </div>
     <div class="house-card">
-      <span class="card-badge" style="background: #5a8a5a;">The Play</span>
+      <span class="card-badge" style="background:var(--tab-accent);">The Play</span>
       <div class="card-inner">
         <h3 class="card-name">VRBO #20141664ha</h3>
         <p class="card-location">St. Simons Island · ~$2,299/night · The Right Size</p>
@@ -2508,7 +2591,7 @@
       </div>
     </div>
     <div class="house-card">
-      <span class="card-badge" style="background: #7aaa7a;">Value Play</span>
+      <span class="card-badge" style="background:var(--tab-accent);opacity:0.75;">Value Play</span>
       <div class="card-inner">
         <h3 class="card-name">VRBO #1692387</h3>
         <p class="card-location">St. Simons Island · ~$1,678/night · Lean and Right</p>
@@ -2537,7 +2620,7 @@
       <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#5a8a5a;text-transform:uppercase;margin-bottom:12px;">★ If Someone Knows a Member</p>
       <p class="golf-name">Sea Island Golf Club — Seaside Course</p>
       <p class="golf-dist">Sea Island · Tom Fazio redesign · Members/Resort Guests only</p>
-      <p class="golf-rating" style="color: #5a8a5a;">★★★★★ &nbsp; Top 100 US · RSM Classic PGA Tour venue · Host of G8 Summit</p>
+      <p class="golf-rating" style="color:var(--tab-accent);">★★★★★ &nbsp; Top 100 US · RSM Classic PGA Tour venue · Host of G8 Summit</p>
       <p class="golf-note">Tom Fazio's redesign of the 1929 H.S. Colt original. Scottish links-style with tidal creeks, dunes, salt marshes, and the Atlantic. The RSM Classic PGA Tour event is played here every fall. Access requires a Sea Island membership or resort stay. This is the round worth solving for. Does anyone in this group know a member?</p>
     </div>
     <div class="golf-card">
@@ -2587,55 +2670,55 @@
     <h2 class="section-title">Closest drive.<br><em>Best history.</em><br>Unfinished business.</h2>
   </div>
   <div class="logistics-grid" style="padding-bottom: 40px;">
-    <div class="logistics-item" style="background: #0d2010;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🚗</span>
       <span class="logistics-label">Get There</span>
-      <span class="logistics-value" style="color: #8fbc8f;">Drive. 4.5 hrs.</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Drive. 4.5 hrs.</span>
       <p class="logistics-sub">I-16 to Brunswick.<br>Nobody flies. Nobody needs to.</p>
     </div>
-    <div class="logistics-item" style="background: #0d2010;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🏌️</span>
       <span class="logistics-label">Golf</span>
-      <span class="logistics-value" style="color: #8fbc8f;">3–4 Courses</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">3–4 Courses</span>
       <p class="logistics-sub">King &amp; Prince + Sea Palms public<br>Sea Island if someone knows a member</p>
     </div>
-    <div class="logistics-item" style="background: #0d2010;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">💰</span>
       <span class="logistics-label">Est. Cost</span>
-      <span class="logistics-value" style="color: #8fbc8f;">~$700/person</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">~$700/person</span>
       <p class="logistics-sub">Shared tab, golf separate.<br>No flights saves everyone money.</p>
     </div>
-    <div class="logistics-item" style="background: #0d2010;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🦀</span>
       <span class="logistics-label">Seafood</span>
-      <span class="logistics-value" style="color: #8fbc8f;">Crab Daddy's</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Crab Daddy's</span>
       <p class="logistics-sub">1217 Ocean Blvd.<br>The shrimp comes from the boats.</p>
     </div>
-    <div class="logistics-item" style="background: #0d2010;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🍺</span>
       <span class="logistics-label">The Night</span>
-      <span class="logistics-value" style="color: #8fbc8f;">The Village</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">The Village</span>
       <p class="logistics-sub">Pier district. Multiple bars.<br>History of incident. Plan accordingly.</p>
     </div>
-    <div class="logistics-item" style="background: #0d2010;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🎰</span>
       <span class="logistics-label">The Bet</span>
-      <span class="logistics-value" style="color: #8fbc8f;">TBD</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">TBD</span>
       <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
     </div>
   </div>
 
-  <div class="ocean-break" style="background: #0d2010; padding: 60px 32px 40px;">
+  <div class="ocean-break" style="background:var(--tab-dark); padding: 60px 32px 40px;">
     <p class="ocean-break-text" style="color: #f5f0e8;">The island still has the Spanish moss. The lighthouse is still there. Crab Daddy's is still on Ocean Boulevard. The Village is still open late.</p>
     <p class="ocean-break-text" style="color: #f5f0e8; margin-top: 20px; font-size: clamp(18px, 3vw, 28px);">Nobody ever finished what they started here.</p>
-    <span class="ocean-break-attr" style="color: #8fbc8f; margin-top: 24px; display: block;">The Home Game Rests Its Case.</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent); margin-top: 24px; display: block;">The Home Game Rests Its Case.</span>
   </div>
 
-  <footer class="footer" style="background: #0d2010;">
+  <footer class="footer" style="background:var(--tab-dark);">
     <p class="footer-roman" style="-webkit-text-stroke: 1px rgba(143,188,143,0.2);">VI</p>
     <span class="footer-wave">🌿</span>
     <p class="footer-line">Peyton got arrested. Mack almost drowned. Yang was a Rubik's cube. The island is still there. So are we.</p>
-    <p class="footer-meta" style="color: #8fbc8f;">The Lads Trip II · St. Simons Island · April 15–18, 2027</p>
+    <p class="footer-meta" style="color:var(--tab-accent);">The Lads Trip II · St. Simons Island · April 15–18, 2027</p>
   </footer>
 
 </div><!-- /tab-ssi -->
@@ -2647,11 +2730,12 @@
 <div id="tab-gulfshorii" class="tab-panel">
 
   <div class="photo-hero">
-    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80');"></div>
-    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(20,5,0,0.95) 0%, rgba(20,5,0,0.6) 50%, rgba(20,5,0,0.2) 100%);"></div>
+    <div class="photo-hero-accent-line"></div>
+    <div class="photo-hero-bg" style="background: linear-gradient(160deg, #140500 0%, #2a0e00 50%, #1a0800 100%);"></div>
+    <span class="photo-hero-watermark">VII</span>
     <div class="photo-hero-content">
-      <p class="photo-hero-eyebrow" style="color:#ff9055;">The Rematch</p>
-      <h1 class="photo-hero-title">The Lads Trip <em style="color:#ff9055;">II</em></h1>
+      <p class="photo-hero-eyebrow" style="color:var(--tab-accent);">The Rematch</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:var(--tab-accent);">II</em></h1>
       <p class="photo-hero-sub">Gulf Shores, Alabama — Again. On Purpose.</p>
       <div class="photo-hero-meta">
         <div class="photo-hero-meta-item">
@@ -2682,9 +2766,9 @@
     <p>Going somewhere new requires the energy of discovery. Going back requires only the willingness to admit that the first time mattered enough to do again. That is a harder thing. That is character.</p>
   </section>
 
-  <div class="ocean-break" style="background:#1a0a00;">
+  <div class="ocean-break" style="background:var(--tab-dark);">
     <p class="ocean-break-text" style="color:#f5f0e8;">"1477 West Beach Boulevard. The tiki bar. The teal Gulf. Mark at six o'clock. The pilot. Flora-Bama. Connor's name on Sunday morning."</p>
-    <span class="ocean-break-attr" style="color:#ff9055;">— Everything that worked, the first time</span>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);">— Everything that worked, the first time</span>
   </div>
 
   <!-- ITINERARY -->
@@ -2793,7 +2877,7 @@
   </div>
   <div class="cards-grid">
     <div class="house-card">
-      <span class="card-badge" style="background:#c8603a;">Already Proven</span>
+      <span class="card-badge" style="background:var(--tab-accent);">Already Proven</span>
       <div class="card-inner">
         <h3 class="card-name">Aqua Vista — or its equal</h3>
         <p class="card-location">Gulf Shores · West Beach Boulevard · Beachfront</p>
@@ -2818,11 +2902,11 @@
     <h2 class="section-title">We know these courses.<br><em>We owe them</em><br>a rematch.</h2>
   </div>
   <div class="golf-grid">
-    <div class="golf-card" style="border-color:#c8603a;background:linear-gradient(135deg,white 0%,rgba(200,96,58,0.04) 100%);">
-      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#c8603a;text-transform:uppercase;margin-bottom:12px;">★ The One Kunal and Miguel Broke</p>
+    <div class="golf-card" style="border-color:var(--tab-accent);background:linear-gradient(135deg,white 0%,rgba(var(--tab-accent-rgb),0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:var(--tab-accent);text-transform:uppercase;margin-bottom:12px;">★ The One Kunal and Miguel Broke</p>
       <p class="golf-name">Kiva Dunes Golf Course</p>
       <p class="golf-dist">Gulf Shores · Already in the mythology</p>
-      <p class="golf-rating" style="color:#c8603a;">★★★★★ &nbsp; Ranked among the best in Alabama · Links-style · Gulf views</p>
+      <p class="golf-rating" style="color:var(--tab-accent);">★★★★★ &nbsp; Ranked among the best in Alabama · Links-style · Gulf views</p>
       <p class="golf-note">Two men. One six-pack each. Discovered around the third hole. A twelve-pack between two men on a links course in Alabama. The scorecard became theoretical. We go back and play it properly. Or at least that is what we tell ourselves.</p>
     </div>
     <div class="golf-card">
@@ -2881,55 +2965,55 @@
     <h2 class="section-title">Everything we got<br><em>wrong the first time.</em><br>We know what it is.</h2>
   </div>
   <div class="logistics-grid" style="padding-bottom: 40px;">
-    <div class="logistics-item" style="background:#1a0a00;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🏆</span>
       <span class="logistics-label">Ryder Cup</span>
-      <span class="logistics-value" style="color:#ff9055;">Rematch</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Rematch</span>
       <p class="logistics-sub">Team Georgia vs Team USA.<br>Mack has the scorecards.</p>
     </div>
-    <div class="logistics-item" style="background:#1a0a00;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🏓</span>
       <span class="logistics-label">Beer Pong</span>
-      <span class="logistics-value" style="color:#ff9055;">This Time We Plan</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">This Time We Plan</span>
       <p class="logistics-sub">Ping pong balls purchased<br>before we leave Atlanta.</p>
     </div>
-    <div class="logistics-item" style="background:#1a0a00;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🦀</span>
       <span class="logistics-label">Mark</span>
-      <span class="logistics-value" style="color:#ff9055;">Book Him Early</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Book Him Early</span>
       <p class="logistics-sub">Six o'clock. Orange apron.<br>Food-grade or otherwise.</p>
     </div>
-    <div class="logistics-item" style="background:#1a0a00;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">💰</span>
       <span class="logistics-label">Est. Cost</span>
-      <span class="logistics-value" style="color:#ff9055;">$865/person</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">$865/person</span>
       <p class="logistics-sub">Shared tab, golf separate.<br>Final tab: $12,981. Exact.</p>
     </div>
-    <div class="logistics-item" style="background:#1a0a00;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">✈️</span>
       <span class="logistics-label">Get There</span>
-      <span class="logistics-value" style="color:#ff9055;">Pensacola or drive</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">Pensacola or drive</span>
       <p class="logistics-sub">We know the route now.<br>No Cybertruck required.</p>
     </div>
-    <div class="logistics-item" style="background:#1a0a00;">
+    <div class="logistics-item" style="background:var(--tab-dark);">
       <span class="logistics-icon">🎰</span>
       <span class="logistics-label">The Bet</span>
-      <span class="logistics-value" style="color:#ff9055;">TBD</span>
+      <span class="logistics-value" style="color:var(--tab-accent);">TBD</span>
       <p class="logistics-sub">No March Madness this time.<br>Connor's daughters still too young.</p>
     </div>
   </div>
 
-  <div class="ocean-break" style="background:#1a0a00;padding:60px 32px 40px;">
+  <div class="ocean-break" style="background:var(--tab-dark);padding:60px 32px 40px;">
     <p class="ocean-break-text" style="color:#f5f0e8;">The Gulf does not care about any of this. It was there before these men and it will be there after. It held them for four days in March and released them back to their lives, which were waiting.</p>
-    <p class="ocean-break-text" style="color:#ff9055;margin-top:20px;font-size:clamp(18px,3vw,28px);">It is still waiting.</p>
-    <span class="ocean-break-attr" style="color:#ff9055;margin-top:24px;display:block;">The Roman numeral at the end of a name is a promise.</span>
+    <p class="ocean-break-text" style="color:var(--tab-accent);margin-top:20px;font-size:clamp(18px,3vw,28px);">It is still waiting.</p>
+    <span class="ocean-break-attr" style="color:var(--tab-accent);margin-top:24px;display:block;">The Roman numeral at the end of a name is a promise.</span>
   </div>
 
-  <footer class="footer" style="background:#1a0a00;">
-    <p class="footer-roman" style="-webkit-text-stroke:1px rgba(255,100,30,0.18);">VII</p>
+  <footer class="footer" style="background:var(--tab-dark);">
+    <p class="footer-roman" style="-webkit-text-stroke:1px rgba(var(--tab-accent-rgb, 255,122,48),0.2);">VII</p>
     <span class="footer-wave">🌊</span>
     <p class="footer-line">Going back is not sentimentality. It is the deliberate choice of men who know what they had.</p>
-    <p class="footer-meta" style="color:#ff9055;">The Lads Trip II · Gulf Shores · April 15–18, 2027</p>
+    <p class="footer-meta" style="color:var(--tab-accent);">The Lads Trip II · Gulf Shores · April 15–18, 2027</p>
   </footer>
 
 </div><!-- /tab-gulfshorii -->

@@ -1,0 +1,2944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lads Trip II — 2027 Pitches</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #f5f0e8;
+    --deep-ocean: #0d2b3e;
+    --ocean-mid: #1a4a6b;
+    --wave: #2e7da8;
+    --foam: #a8d4e8;
+    --gold: #c8a96e;
+    --ink: #1a1a1a;
+    --muted: #5a5a5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--sand);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── STICKY HEADER ── */
+  .site-header {
+    background: var(--deep-ocean);
+    padding: 20px 32px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.35);
+  }
+
+  .site-header-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .site-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--sand);
+    letter-spacing: -0.01em;
+  }
+  .site-title em { font-style: italic; color: var(--gold); }
+
+  .site-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--foam);
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  /* ── TABS ── */
+  .tab-nav { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 11px 22px 13px;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--foam);
+    opacity: 0.45;
+    transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { opacity: 0.75; color: var(--sand); }
+  .tab-btn.active { opacity: 1; color: var(--gold); border-bottom-color: var(--gold); }
+
+  .tab-num {
+    display: inline-block;
+    font-size: 8px;
+    opacity: 0.6;
+    margin-right: 7px;
+    letter-spacing: 0;
+  }
+  .tab-btn.active .tab-num { opacity: 1; }
+
+  /* ── PANELS ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; background: var(--sand); }
+
+  .prose-section, .moments-section, .origin-cta-section,
+  .section-header, .cards-grid, .golf-grid, .placeholder-panel {
+    background: var(--sand);
+  }
+
+  /* ════════════════════════════════════════
+     PHOTO HERO — parallax background
+  ════════════════════════════════════════ */
+  .photo-hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  .photo-hero-bg {
+    position: absolute;
+    inset: -10% 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    animation: kenBurns 20s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+
+  @keyframes kenBurns {
+    from { transform: scale(1.0) translate(0, 0); }
+    to   { transform: scale(1.08) translate(-1%, -1%); }
+  }
+
+  .photo-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .photo-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 40px 80px;
+    max-width: 800px;
+  }
+
+  .photo-hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.4s;
+  }
+
+  .photo-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 9vw, 96px);
+    font-weight: 900;
+    color: white;
+    line-height: 1.0;
+    margin-bottom: 12px;
+    text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.6s;
+  }
+
+  .photo-hero-title em { font-style: italic; }
+
+  .photo-hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 40px;
+    text-shadow: 0 1px 20px rgba(0,0,0,0.4);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.8s;
+  }
+
+  .photo-hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.0s;
+  }
+
+  .photo-hero-meta-item { text-align: left; }
+
+  .photo-hero-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    display: block;
+    margin-bottom: 3px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .photo-hero-meta-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.4);
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    right: 40px;
+    z-index: 2;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.3s, pulse 2s ease-in-out 2s infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 0.9; }
+  }
+
+  /* ════════════════════════════════════════
+     ORIGIN HERO (unchanged dark style)
+  ════════════════════════════════════════ */
+  .origin-hero {
+    background: var(--deep-ocean);
+    min-height: 60vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    padding: 100px 32px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .origin-watermark {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(120px, 30vw, 280px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,169,110,0.11);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+  }
+
+  .origin-hero-inner { position: relative; z-index: 2; }
+
+  .origin-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .origin-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 9vw, 90px);
+    font-weight: 900;
+    color: var(--sand);
+    line-height: 1.0;
+    margin-bottom: 14px;
+  }
+  .origin-title em { font-style: italic; color: var(--gold); }
+
+  .origin-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--foam);
+    opacity: 0.7;
+    margin-bottom: 52px;
+  }
+
+  .origin-meta { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; }
+  .origin-meta-item { text-align: center; }
+
+  .origin-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--foam);
+    opacity: 0.5;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .origin-meta-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ════════════════════════════════════════
+     ITINERARY
+  ════════════════════════════════════════ */
+  .itinerary-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    background: var(--sand);
+  }
+
+  .itinerary-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .itinerary-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(200,169,110,0.4), transparent);
+  }
+
+  .itinerary-day {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0 24px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .itinerary-day::before {
+    content: '';
+    position: absolute;
+    left: 99px;
+    top: 28px;
+    bottom: -1px;
+    width: 1px;
+    background: rgba(200,169,110,0.2);
+  }
+  .itinerary-day:last-child::before { display: none; }
+
+  .itinerary-day-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    padding-top: 6px;
+    text-align: right;
+    padding-right: 24px;
+  }
+
+  .itinerary-day-content {
+    border-left: none;
+    padding-bottom: 32px;
+    padding-left: 0;
+  }
+
+  .itinerary-item {
+    position: relative;
+    padding: 6px 0 6px 20px;
+    margin-bottom: 4px;
+  }
+
+  .itinerary-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 13px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--sand);
+    outline: 1px solid rgba(200,169,110,0.4);
+  }
+
+  .itinerary-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .itinerary-activity {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--deep-ocean);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .itinerary-note {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ════════════════════════════════════════
+     MOMENTS GRID (Origin tab)
+  ════════════════════════════════════════ */
+  .moments-section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 32px 0;
+  }
+
+  .moments-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .moments-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(200,169,110,0.4), transparent);
+  }
+
+  .moment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: rgba(0,0,0,0.07);
+    margin-bottom: 80px;
+  }
+
+  .moment-card { background: white; padding: 28px 24px; }
+  .moment-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+
+  .moment-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--deep-ocean);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .moment-body { font-size: 13px; line-height: 1.65; color: var(--muted); }
+
+  /* quote band */
+  .origin-quote-band {
+    background: var(--deep-ocean);
+    padding: 72px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .origin-quote-band::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 180px;
+    color: rgba(255,255,255,0.025);
+    position: absolute;
+    top: -30px; left: 16px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .origin-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(20px, 3.5vw, 32px);
+    color: var(--sand);
+    line-height: 1.55;
+    max-width: 680px;
+    margin: 0 auto 12px;
+  }
+
+  .origin-quote-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* CTA */
+  .origin-cta-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 32px 100px;
+    text-align: center;
+  }
+
+  .origin-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 420px;
+    margin: 0 auto 48px;
+  }
+  .origin-divider::before, .origin-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(200,169,110,0.4), transparent);
+  }
+  .origin-divider span {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    opacity: 0.6;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .origin-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4.5vw, 38px);
+    font-weight: 900;
+    color: var(--deep-ocean);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .origin-cta-title em { font-style: italic; color: var(--wave); }
+
+  .origin-cta-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  .origin-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--deep-ocean);
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border: 1px solid rgba(200,169,110,0.25);
+    transition: background 0.2s, color 0.2s;
+  }
+  .origin-cta-btn:hover { background: var(--gold); color: white; }
+  .origin-cta-arrow { font-size: 14px; letter-spacing: 0; transition: transform 0.2s; }
+  .origin-cta-btn:hover .origin-cta-arrow { transform: translateX(4px); }
+
+  /* ════════════════════════════════════════
+     SHARED CONTENT STYLES
+  ════════════════════════════════════════ */
+  .prose-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 100px 32px;
+    position: relative;
+  }
+
+  .prose-section::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    margin: 0 auto 60px;
+  }
+
+  .drop-cap::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 5.5em;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    padding-right: 12px;
+    padding-top: 8px;
+    color: var(--ocean-mid);
+  }
+
+  .prose-section p {
+    font-size: 18px;
+    line-height: 1.85;
+    color: #2a2a2a;
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+  .prose-section p strong { font-weight: 500; color: var(--deep-ocean); }
+
+  .pull-quote {
+    border-left: 3px solid var(--gold);
+    padding: 24px 32px;
+    margin: 48px 0;
+    background: rgba(200,169,110,0.05);
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px !important;
+    line-height: 1.6 !important;
+    color: var(--deep-ocean) !important;
+    margin: 0 !important;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 32px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .section-divider-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .ocean-break {
+    background: var(--deep-ocean);
+    padding: 80px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ocean-break::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    top: -40px; left: 20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .ocean-break-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(22px, 4vw, 36px);
+    color: var(--sand);
+    line-height: 1.5;
+    max-width: 700px;
+    margin: 0 auto 16px;
+  }
+
+  .ocean-break-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .section-header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 32px 0;
+    background: var(--sand);
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 900;
+    color: var(--deep-ocean);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .section-title em { font-style: italic; color: var(--wave); }
+
+  .cards-grid {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    display: grid;
+    gap: 24px;
+  }
+
+  .house-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.06);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: var(--gold);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    z-index: 2;
+  }
+
+  .card-inner { padding: 32px; }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--deep-ocean);
+    margin-bottom: 4px;
+  }
+
+  .card-location {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .card-desc { font-size: 15px; line-height: 1.7; color: #3a3a3a; margin-bottom: 24px; }
+
+  .card-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .spec-item { text-align: center; }
+
+  .spec-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ocean-mid);
+    display: block;
+  }
+
+  .spec-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .card-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    background: rgba(46,125,168,0.08);
+    color: var(--ocean-mid);
+    border: 1px solid rgba(46,125,168,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    text-transform: uppercase;
+  }
+
+  .golf-grid {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .golf-card {
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 24px;
+    background: white;
+    position: relative;
+  }
+
+  .golf-card.top-pick {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, white 0%, rgba(200,169,110,0.04) 100%);
+  }
+
+  .golf-card.top-pick::before {
+    content: '★ Top Pick';
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .golf-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--deep-ocean);
+    margin-bottom: 4px;
+  }
+
+  .golf-dist {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .golf-rating { font-size: 13px; color: var(--gold); margin-bottom: 8px; }
+  .golf-note { font-size: 13px; color: #4a4a4a; line-height: 1.6; }
+
+  .logistics-grid {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+
+  .logistics-item { padding: 28px 24px; background: var(--deep-ocean); text-align: center; }
+  .logistics-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+
+  .logistics-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--foam);
+    opacity: 0.6;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .logistics-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .logistics-sub { font-size: 12px; color: var(--foam); opacity: 0.6; margin-top: 4px; }
+
+  .footer {
+    background: var(--deep-ocean);
+    padding: 80px 32px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .footer-roman {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 20vw, 180px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,169,110,0.15);
+    line-height: 1;
+    margin-bottom: -20px;
+  }
+
+  .footer-line {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(20px, 3.5vw, 30px);
+    color: var(--sand);
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+
+  .footer-wave { font-size: 32px; display: block; margin-bottom: 24px; }
+
+  .footer-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .big-number-section { padding: 80px 32px; text-align: center; background: white; }
+
+  .big-number-grid {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .big-number-item { text-align: center; }
+
+  .big-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 80px);
+    font-weight: 900;
+    color: var(--deep-ocean);
+    line-height: 1;
+    display: block;
+  }
+
+  .big-number-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .big-number-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ══ STICKY HEADER ══ -->
+<header class="site-header">
+  <div class="site-header-top">
+    <span class="site-title">The Lads Trip <em>II</em></span>
+    <span class="site-date">April 15–18, 2027 · The Proposals</span>
+  </div>
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" role="tab" onclick="switchTab('origin', this)">
+      <span class="tab-num">I</span>The Origin
+    </button>
+    <button class="tab-btn" role="tab" onclick="switchTab('obx', this)">
+      <span class="tab-num">II</span>Outer Banks, NC
+    </button>
+    <button class="tab-btn" role="tab" onclick="switchTab('myrtle', this)">
+      <span class="tab-num">III</span>Myrtle Beach, SC
+    </button>
+    <button class="tab-btn" role="tab" onclick="switchTab('iop', this)">
+      <span class="tab-num">IV</span>Isle of Palms, SC
+    </button>
+    <button class="tab-btn" role="tab" onclick="switchTab('hhh', this)">
+      <span class="tab-num">V</span>Hilton Head, SC
+    </button>
+    <button class="tab-btn" role="tab" onclick="switchTab('ssi', this)">
+      <span class="tab-num">VI</span>St. Simons Island, GA
+    </button>
+    <button class="tab-btn" role="tab" onclick="switchTab('gulfshorii', this)">
+      <span class="tab-num">VII</span>Gulf Shores — Run It Back
+    </button>
+  </nav>
+</header>
+
+
+<!-- ══════════════════════════════════
+     TAB I — THE ORIGIN
+══════════════════════════════════ -->
+<div id="tab-origin" class="tab-panel active">
+
+  <div class="origin-hero">
+    <div class="origin-watermark">I</div>
+    <div class="origin-hero-inner">
+      <p class="origin-eyebrow">Where it began</p>
+      <h1 class="origin-title">The Lads Trip <em>I</em></h1>
+      <p class="origin-sub">Gulf Shores, Alabama &nbsp;·&nbsp; March 2026</p>
+      <div class="origin-meta">
+        <div class="origin-meta-item">
+          <span class="origin-meta-label">Men</span>
+          <span class="origin-meta-value">15</span>
+        </div>
+        <div class="origin-meta-item">
+          <span class="origin-meta-label">Days</span>
+          <span class="origin-meta-value">4</span>
+        </div>
+        <div class="origin-meta-item">
+          <span class="origin-meta-label">Per person</span>
+          <span class="origin-meta-value">$865</span>
+        </div>
+        <div class="origin-meta-item">
+          <span class="origin-meta-label">Slush pot</span>
+          <span class="origin-meta-value">New York</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="moments-section">
+    <p class="moments-label">A few things that happened</p>
+    <div class="moment-grid">
+      <div class="moment-card">
+        <span class="moment-icon">🚗</span>
+        <p class="moment-headline">Nobody ordered the Cybertruck.</p>
+        <p class="moment-body">A tree. A carport pillar. A rental that died on the side of the road. One loaner nobody saw coming. He parked it diagonally in the driveway so it was the first thing anyone saw pulling in.</p>
+      </div>
+      <div class="moment-card">
+        <span class="moment-icon">✈️</span>
+        <p class="moment-headline">The pilot went for ping pong balls.</p>
+        <p class="moment-body">The bracket was set. The cups were arranged. There were no ping pong balls. Chris made a call. The pilot knocked on the door. Everyone thought it was DoorDash. It was not DoorDash.</p>
+      </div>
+      <div class="moment-card">
+        <span class="moment-icon">🦀</span>
+        <p class="moment-headline">Mark came at six o'clock.</p>
+        <p class="moment-body">Orange apron, teal shirt, blue sunglasses. Buckets of crab legs, shrimp, crawfish, sausage, and corn. The food-grade bucket debate started immediately. Tolliver was still making his case a week later.</p>
+      </div>
+      <div class="moment-card">
+        <span class="moment-icon">🏌️</span>
+        <p class="moment-headline">He played with a broken arm.</p>
+        <p class="moment-body">Trey broke it at home before the trip. He played anyway — round after round, all the way to the beer pong finals. They lost to Mike Barry and Gerry. Mike Barry had driven five hours from Nashville.</p>
+      </div>
+      <div class="moment-card">
+        <span class="moment-icon">🌊</span>
+        <p class="moment-headline">Kevin and Nick in the red light.</p>
+        <p class="moment-body">Flora-Bama. 1964. Sixty years of Saturday nights. Early 2000s music. They found each other somewhere in the dark and hugged in a way that had nothing performative about it. That photo goes on the wall.</p>
+      </div>
+      <div class="moment-card">
+        <span class="moment-icon">👶</span>
+        <p class="moment-headline">The slush pot went to New York.</p>
+        <p class="moment-body">Connor came furthest. Stayed one night. Left Friday because his wife was in the hospital. Two days later the group chat: twin girls. His name was drawn on Sunday morning. Of course it was.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="origin-quote-band">
+    <p class="origin-quote">The Roman numeral on the name was not hubris.<br>It was a statement of intent.</p>
+    <span class="origin-quote-attr">Gulf Shores, Alabama · March 2026</span>
+  </div>
+
+  <!-- BUDGET BREAKDOWN -->
+  <div class="moments-section" style="padding-bottom: 80px;">
+    <p class="moments-label">Where the $865 went</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--muted);margin-bottom:32px;font-style:italic;">Shared tab only. Golf was paid individually at the course — not included here.</p>
+    <div class="moment-grid">
+      <div class="moment-card" style="border-top: 3px solid var(--deep-ocean);">
+        <span class="moment-icon">🏠</span>
+        <p class="moment-headline">House — $8,621 &nbsp;·&nbsp; $575/person</p>
+        <p class="moment-body">Aqua Vista. Twelve bedrooms, beachfront, heated pool, tiki bar. 66% of the entire shared tab. The house is always the number. Everything else is rounding.</p>
+      </div>
+      <div class="moment-card" style="border-top: 3px solid var(--gold);">
+        <span class="moment-icon">🦀</span>
+        <p class="moment-headline">Seafood Boil — $1,211 &nbsp;·&nbsp; $87/person</p>
+        <p class="moment-body">Mark. Six o'clock. Orange apron. Crab legs, shrimp, crawfish, sausage, corn. The food-grade bucket debate. Tolliver's case. Non-negotiable line item wherever we go.</p>
+      </div>
+      <div class="moment-card" style="border-top: 3px solid var(--wave);">
+        <span class="moment-icon">🌊</span>
+        <p class="moment-headline">Flora-Bama Night — $826 &nbsp;·&nbsp; ~$55/person</p>
+        <p class="moment-body">Dinner at the Yacht Club ($893). Bus there and back ($276). Boat ride ($448). Uber overflow ($102). The most expensive night and the one nobody would trade.</p>
+      </div>
+      <div class="moment-card" style="border-top: 3px solid var(--muted);">
+        <span class="moment-icon">🍕</span>
+        <p class="moment-headline">Food & Groceries — $1,031 &nbsp;·&nbsp; $69/person</p>
+        <p class="moment-body">Crico's pizza Thursday, groceries Friday, lunch at the golf course Saturday. Fifteen men eat a lot. This is not a surprise.</p>
+      </div>
+    </div>
+    <div style="max-width:680px;margin:40px auto 0;padding:28px 32px;background:var(--deep-ocean);text-align:center;">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.28em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;">The number that matters for Trip II</p>
+      <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(17px,3vw,22px);color:var(--sand);line-height:1.6;">The house was 66% of everything. Find a house that costs less and the whole trip costs less. Find a house that costs more and no amount of cheaper golf makes up for it.</p>
+    </div>
+  </div>
+
+  <div class="origin-cta-section">
+    <div class="origin-divider"><span>Read the full story</span></div>
+    <p class="origin-cta-title">The <em>complete account</em><br>is waiting for you.</p>
+    <p class="origin-cta-sub">The essay. The essay does it justice.</p>
+    <a href="https://peytoned21.github.io/lads-trip-i/" target="_blank" class="origin-cta-btn">
+      The Lads Trip I &nbsp;<span class="origin-cta-arrow">→</span>
+    </a>
+  </div>
+
+</div><!-- /tab-origin -->
+
+
+<!-- ══════════════════════════════════
+     TAB II — OUTER BANKS
+══════════════════════════════════ -->
+<div id="tab-obx" class="tab-panel">
+
+  <!-- PHOTO HERO -->
+  <div class="photo-hero">
+    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80');"></div>
+    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(10,30,50,0.92) 0%, rgba(10,30,50,0.55) 50%, rgba(10,30,50,0.2) 100%);"></div>
+    <div class="photo-hero-content">
+      <p class="photo-hero-eyebrow" style="color: var(--gold);">A Declaration of Intent</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color: var(--gold);">II</em></h1>
+      <p class="photo-hero-sub">Outer Banks, North Carolina</p>
+      <div class="photo-hero-meta">
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">When</span>
+          <span class="photo-hero-meta-value">April 15–18, 2027</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Where</span>
+          <span class="photo-hero-meta-value">Kill Devil Hills, NC</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Est. Cost</span>
+          <span class="photo-hero-meta-value">~$900–1,100</span>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue">↓ scroll</span>
+  </div>
+
+  <section class="prose-section">
+    <p class="drop-cap">The Roman numeral at the end of a name is a promise. It says: this was not a coincidence. It says: we chose this, and we are choosing it again, which is a harder and more deliberate thing than choosing it once. Once is instinct. Twice is character.</p>
+    <p>The Lads Trip I happened because one man decided enough was enough. Fifteen men showed up — from Atlanta, from Birmingham, from New York, from all the separate corners that adult life distributes you to when you're not paying attention. They ate seafood until there was no seafood left. They played golf with a broken arm. They sent a pilot for ping pong balls. They stood in the red light of Flora-Bama and hugged each other in a way that had nothing performative about it. Connor won the raffle on Sunday morning, even though he'd already gone home. Twin girls are on the way.</p>
+    <p>That was Alabama. Gulf Coast. Flat water and honky tonks and the particular humidity of the South doing what the South does.</p>
+    <p>This is different.</p>
+    <div class="pull-quote">
+      <p>The Outer Banks doesn't look like anything else on the East Coast. It looks like the edge of something — a thin strip of barrier island where the Atlantic decides to stop being the ocean and start being the beach.</p>
+    </div>
+    <p>The golf is links-style, which means wind in your face and decisions to make on every tee. The seafood comes straight from the sound. The houses sit <strong>directly on the water</strong>, not a dune walk away — on it, above it, with the Atlantic in every window from the top floor down. The Wright Brothers flew here. The wild horses still run loose up the road in Corolla. History does what it always does on the OBX: it just sits there being true, unbothered, waiting to be noticed.</p>
+    <p>We are going. The group is getting bigger. The invitation is open. The only requirement is the same one it's always been: get in the car.</p>
+  </section>
+
+  <div class="ocean-break">
+    <p class="ocean-break-text">"The years were not going to take this from them without a fight."</p>
+    <span class="ocean-break-attr">— The Lads Trip I, Gulf Shores, March 2026</span>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-header">
+    <span class="section-tag">How It Goes</span>
+    <h2 class="section-title">Four days.<br><em>The rough plan.</em></h2>
+  </div>
+
+  <div class="itinerary-section" style="padding-top: 40px;">
+    <p class="itinerary-header">Thu – Sun · April 15–18</p>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Arrive · Keys in hand · Bags up fast</span>
+          <span class="itinerary-note">Fly into Norfolk (ORF), 1hr 15min drive. Or Dare County (MEO) if you can find a flight. Or just drive — it's doable from Atlanta in 9 hours.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">First night — provisions run, deck beers, low key</span>
+          <span class="itinerary-note">The house is the event tonight. Top-floor deck. Atlantic view. The trip starts here.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Fri<br>Apr 16</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 1 — Sea Scape Golf Links, Kitty Hawk</span>
+          <span class="itinerary-note">10 minutes from the house. Links-style Bermuda grass. The warm-up round that turns into the hardest round of the trip.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Pool deck · Sound-side sunset · Seafood run</span>
+          <span class="itinerary-note">Find the local equivalent of Mark. Someone sources the buckets. This is non-negotiable.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Seafood boil at the house</span>
+          <span class="itinerary-note">The sound in every window. Fifteen men eating until there's nothing left.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sat<br>Apr 17</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 2 — The Pointe Golf Club (Top Pick)</span>
+          <span class="itinerary-note">20 minutes north in Powells Point. 4.7 stars, 462 reviews. The round everyone talks about on the way home.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Split — Nags Head Golf Links for the motivated</span>
+          <span class="itinerary-note">Sound views on the back nine. Golden hour. Or just stay on the beach. Both are correct.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Night</span>
+          <span class="itinerary-activity">Kill Devil Hills — bars, dinner, whatever happens</span>
+          <span class="itinerary-note">The OBX doesn't have a Flora-Bama. It doesn't need one. The town is the night.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sun<br>Apr 18</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 3 optional — Currituck Club, Corolla</span>
+          <span class="itinerary-note">45 minutes north. The splurge round. Back nine is genuinely spectacular. Worth the drive if the group has it in them.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Midday</span>
+          <span class="itinerary-activity">The Bet · Settle up · Pack out</span>
+          <span class="itinerary-note">Whatever we've landed on for the pool. Someone runs the numbers. The cars go north.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-item">
+        <span class="big-number">4</span>
+        <span class="big-number-label">Golf Courses</span>
+        <p class="big-number-sub">Three within 20 min,<br>one worth the 45-min drive</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">10+</span>
+        <span class="big-number-label">Bedrooms</span>
+        <p class="big-number-sub">Oceanfront estate</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">~$900</span>
+        <span class="big-number-label">Est. Per Person</span>
+        <p class="big-number-sub">Shared tab, golf separate</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Houses</span></div>
+  <div class="section-header">
+    <span class="section-tag">Where We Sleep</span>
+    <h2 class="section-title">Two <em>contenders.</em><br>Both oceanfront. Both serious.</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="house-card">
+      <span class="card-badge">Already Found</span>
+      <div class="card-inner">
+        <h3 class="card-name">Heavenly Sunrise</h3>
+        <p class="card-location">Kill Devil Hills · New Construction</p>
+        <p class="card-desc">New construction luxury, sitting directly on the Atlantic. The kind of house that was built specifically so a group like ours could stand on a top-floor deck at sunrise with a drink and feel like they made the right call. Pool, hot tub, and an unobstructed view of the ocean in every direction. The name sounds like committee work but turns out to be exactly right.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">~12</span><span class="spec-label">Bedrooms</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Private Pool</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Hot Tub</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Dog OK</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Oceanfront</span><span class="tag">New Build</span>
+          <span class="tag">Pool + Hot Tub</span><span class="tag">KDH Central</span>
+        </div>
+      </div>
+    </div>
+    <div class="house-card">
+      <span class="card-badge">Strong Alternative</span>
+      <div class="card-inner">
+        <h3 class="card-name">Grande Atlantis</h3>
+        <p class="card-location">Kill Devil Hills · Milepost 7.5</p>
+        <p class="card-desc">Brand new coastal estate built for exactly what we're doing. Ten bedrooms, seven with private baths. A rec room with pool table, foosball, poker table, and arcade. A home theater. A cabana with a roof deck. EV charger. The works. If Heavenly Sunrise is the dawn you watch from a deck chair, Grande Atlantis is the house that doesn't let the night end.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">10</span><span class="spec-label">Bedrooms</span></div>
+          <div class="spec-item"><span class="spec-value">7</span><span class="spec-label">Private Baths</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Theater Room</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Rec Room</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Oceanfront</span><span class="tag">New Build</span>
+          <span class="tag">Pool + Cabana</span><span class="tag">Home Theater</span>
+          <span class="tag">Poker Table</span><span class="tag">Elevator</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Golf</span></div>
+  <div class="section-header">
+    <span class="section-tag">Tee Times</span>
+    <h2 class="section-title">Links golf.<br><em>Atlantic wind.</em><br>No excuses.</h2>
+  </div>
+  <div class="golf-grid">
+    <div class="golf-card top-pick">
+      <p class="golf-name">The Pointe Golf Club</p>
+      <p class="golf-dist">~20 min · Powells Point</p>
+      <p class="golf-rating">★★★★★ &nbsp; 4.7 (462 reviews)</p>
+      <p class="golf-note">Highest rated course in the area. Consistently called the only OBX course that isn't a money grab. Full driving range, chipping greens, bar & grille. This is the one we build a morning around.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Sea Scape Golf Links</p>
+      <p class="golf-dist">~10 min · Kitty Hawk</p>
+      <p class="golf-rating">★★★★ &nbsp; 4.3 (355 reviews)</p>
+      <p class="golf-note">Closest course to the house. Links-style with excellent conditions and Bermuda grass. The easy morning warm-up round that turns into the hardest round of the trip.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Nags Head Golf Links</p>
+      <p class="golf-dist">~15 min · Nags Head</p>
+      <p class="golf-rating">★★★★ &nbsp; 4.3 (502 reviews)</p>
+      <p class="golf-note">Stunning sound views on the back nine. Narrow fairways that will find out exactly who has been practicing and who hasn't. The most scenic round on the OBX, especially at golden hour.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">The Currituck Club</p>
+      <p class="golf-dist">~45 min · Corolla</p>
+      <p class="golf-rating">★★★★ &nbsp; 4.2 (386 reviews)</p>
+      <p class="golf-note">The splurge round. Back nine is genuinely spectacular. Worth making the drive north at least once if the group wants a marquee tee time to talk about on the way home.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Food & Night</span></div>
+  <div class="section-header">
+    <span class="section-tag">Off the Course</span>
+    <h2 class="section-title">Sound-fresh seafood.<br><em>The OBX at night.</em></h2>
+  </div>
+  <div class="cards-grid" style="padding-bottom: 40px;">
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">The Seafood Boil</h3>
+        <p class="card-location">At the house · Saturday night · Non-negotiable</p>
+        <p class="card-desc">The OBX seafood comes from the Pamlico Sound and the Atlantic — shrimp, crab, oysters from the water that's visible from the top deck. Find the local equivalent of Mark. This is solved the same way it was solved in Gulf Shores: someone makes a call, someone shows up with buckets, fifteen men sit down together and don't leave until there's nothing left.</p>
+        <div class="card-tags">
+          <span class="tag">Sound-Fresh Shrimp</span><span class="tag">Atlantic Crab</span>
+          <span class="tag">OBX Oysters</span><span class="tag">Saturday Night</span>
+        </div>
+      </div>
+    </div>
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">Kill Devil Hills — The Night Out</h3>
+        <p class="card-location">Kill Devil Hills Village · Walking distance</p>
+        <p class="card-desc">The OBX doesn't have a Flora-Bama. What it has is the village at Kill Devil Hills — a walkable strip of bars and restaurants along the beach road that stays open late and has the right energy without requiring a bus rental. The Lone Cedar for the Friday sit-down. Dirty Dick's Crab House if the night calls for it. The rest improvised, as it should be.</p>
+        <div class="card-tags">
+          <span class="tag">Walkable</span><span class="tag">Lone Cedar</span>
+          <span class="tag">Beach Road Bars</span><span class="tag">No Bus Required</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Logistics</span></div>
+  <div class="section-header">
+    <span class="section-tag">The Basics</span>
+    <h2 class="section-title">Just enough <em>structure</em><br>to make chaos possible.</h2>
+  </div>
+  <div class="logistics-grid">
+    <div class="logistics-item">
+      <span class="logistics-icon">🗓</span>
+      <span class="logistics-label">When</span>
+      <span class="logistics-value">Apr 15–18</span>
+      <p class="logistics-sub">Thursday arrival<br>Sunday/Monday departure</p>
+    </div>
+    <div class="logistics-item">
+      <span class="logistics-icon">✈️</span>
+      <span class="logistics-label">Fly Into</span>
+      <span class="logistics-value">Norfolk, VA</span>
+      <p class="logistics-sub">1hr 15min drive<br>or Dare County (MEO)</p>
+    </div>
+    <div class="logistics-item">
+      <span class="logistics-icon">🏌️</span>
+      <span class="logistics-label">Golf</span>
+      <span class="logistics-value">4 Courses</span>
+      <p class="logistics-sub">All within 45 min<br>Links-style throughout</p>
+    </div>
+    <div class="logistics-item">
+      <span class="logistics-icon">💰</span>
+      <span class="logistics-label">Est. Cost</span>
+      <span class="logistics-value">~$900–1,100</span>
+      <p class="logistics-sub">Shared tab, excl. golf<br>Oceanfront on the Atlantic</p>
+    </div>
+    <div class="logistics-item">
+      <span class="logistics-icon">🦀</span>
+      <span class="logistics-label">Seafood</span>
+      <span class="logistics-value">Non-negotiable</span>
+      <p class="logistics-sub">We find our Mark.<br>Someone sources the buckets.</p>
+    </div>
+    <div class="logistics-item">
+      <span class="logistics-icon">🎰</span>
+      <span class="logistics-label">The Bet</span>
+      <span class="logistics-value">TBD</span>
+      <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
+    </div>
+  </div>
+
+  <div class="ocean-break" style="padding: 60px 32px 40px;">
+    <p class="ocean-break-text">The Outer Banks will hold us for four days in the spring. Then it will release us back to the lives we came from, which are good lives, necessary lives — lives full of things that matter.</p>
+    <p class="ocean-break-text" style="margin-top: 20px; font-size: clamp(18px, 3vw, 28px);">But lives that are not this.</p>
+    <span class="ocean-break-attr" style="margin-top: 24px; display: block;">Unless we show up.</span>
+  </div>
+
+  <footer class="footer">
+    <p class="footer-roman">II</p>
+    <span class="footer-wave">🌊</span>
+    <p class="footer-line">The Roman numeral was not hubris. It was a statement of intent.</p>
+    <p class="footer-meta">The Lads Trip II · OBX · April 15–18, 2027</p>
+  </footer>
+
+</div><!-- /tab-obx -->
+
+
+<!-- ══════════════════════════════════
+     TAB III — MYRTLE BEACH
+══════════════════════════════════ -->
+<div id="tab-myrtle" class="tab-panel">
+
+  <div class="photo-hero">
+    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1600&q=80');"></div>
+    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(15,35,15,0.93) 0%, rgba(15,35,15,0.55) 50%, rgba(15,35,15,0.2) 100%);"></div>
+    <div class="photo-hero-content">
+      <p class="photo-hero-eyebrow" style="color: #a8c86e;">The Underdog Case</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color: #a8c86e;">II</em></h1>
+      <p class="photo-hero-sub">Myrtle Beach / Murrells Inlet, South Carolina</p>
+      <div class="photo-hero-meta">
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">When</span>
+          <span class="photo-hero-meta-value">April 15–18, 2027</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Golf Courses</span>
+          <span class="photo-hero-meta-value">80+</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Est. Cost</span>
+          <span class="photo-hero-meta-value">~$750/person</span>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue">↓ scroll</span>
+  </div>
+
+  <section class="prose-section">
+    <p class="drop-cap">Myrtle Beach does not need your approval. It has been hosting groups exactly like ours for sixty years — men with handicaps they haven't updated, coolers they filled at a gas station, and a group chat that went sideways before they hit the state line. It knows what it is. The question is whether you do.</p>
+    <p>The pitch is simple and honest: Myrtle Beach is <strong>easier to get to, cheaper to operate, and has more golf within fifteen minutes of the house than most coastal destinations have within an hour.</strong> It is the trip you can actually afford to do right. The trip where the cost savings go into rounds instead of the rental. The trip where nobody has to justify the flight.</p>
+    <p>Murrells Inlet is the part of Myrtle Beach nobody talks about on the highway billboards. Thirty minutes south of the strip, past the mini-golf and the Ripley's, where the marsh opens up and the water turns serious and the seafood comes in from the boats that morning. The MarshWalk runs right along the inlet — open-air, waterfront, cold beer, the kind of sunset that makes a man quiet for a minute before he orders another round.</p>
+    <div class="pull-quote">
+      <p>Eighty courses within forty minutes of each other. The Golf Capital of the World is not a marketing claim. It is a logistics advantage.</p>
+    </div>
+    <p>Caledonia is the one you tell people about when you get home. TPC Myrtle Beach is a Tom Fazio design that hosted the Senior PGA Tour Championship and sits five miles from the house. True Blue is the round that breaks someone. These are not consolation courses. These are the rounds that justify the trip, and there are more of them within forty minutes of the house than most golf destinations can offer in a weekend.</p>
+    <p>The chaos isn't in the destination. It travels with us. Myrtle Beach will have its own version of all of it. It always does.</p>
+  </section>
+
+  <div class="ocean-break" style="background: #1a2e1a;">
+    <p class="ocean-break-text" style="color: #f5f0e8;">"Eighty courses. Four days. Fifteen men who know exactly what they came for."</p>
+    <span class="ocean-break-attr" style="color: #a8c86e;">— The Case for Myrtle</span>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-header">
+    <span class="section-tag">How It Goes</span>
+    <h2 class="section-title">Four days.<br><em>The rough plan.</em></h2>
+  </div>
+
+  <div class="itinerary-section" style="padding-top: 40px;">
+    <p class="itinerary-header">Thu – Sun · April 15–18</p>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Arrive · MYR or drive · House open</span>
+          <span class="itinerary-note">Fly direct into Myrtle Beach (MYR), or Charlotte (CLT) and drive 2.5 hours. From Atlanta it's a straight 6-hour drive — doable without a flight.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">MarshWalk — Murrells Inlet</span>
+          <span class="itinerary-note">7 minutes from the house. Open-air waterfront, boats coming in, first cold beer of the trip. Dead Dog Saloon or Wahoo's. The night sets the tone.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Fri<br>Apr 16</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 1 — Caledonia Golf &amp; Fish Club</span>
+          <span class="itinerary-note">Century-old live oaks. Spanish moss. 18th hole over water. Top 100 since 1994. This is the round you tell people about. Book early — it sells out.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Pool deck · Groceries · Set up the bet</span>
+          <span class="itinerary-note">Whatever we've landed on for the house pool. Someone runs the framework Friday afternoon so it's live for the weekend.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Seafood boil at the house</span>
+          <span class="itinerary-note">The MarshWalk waterfront is seven minutes away. The buckets come from there. Mark, or the Murrells Inlet version of Mark.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sat<br>Apr 17</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 2 — TPC Myrtle Beach</span>
+          <span class="itinerary-note">15 minutes from the house. Only 5-star Golf Digest course on the Grand Strand. Dustin Johnson's home track. Water on 10 of 18. The round where someone has a complete emotional breakdown on a par-3.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">True Blue optional — the split round</span>
+          <span class="itinerary-note">12 minutes away. Golf Magazine Top 100 Trips for Buddies. The motivated half goes. The other half doesn't.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Night</span>
+          <span class="itinerary-activity">Back to the MarshWalk · The long version</span>
+          <span class="itinerary-note">Saturday night in Murrells Inlet. This is the night that runs long. Plan accordingly.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sun<br>Apr 18</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 3 optional — Tidewater, North Myrtle</span>
+          <span class="itinerary-note">"The Pebble Beach of the East." 35 minutes north. The group decides Sunday morning if anyone has it in them.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Midday</span>
+          <span class="itinerary-activity">Settle the bet · Pack out · Head home</span>
+          <span class="itinerary-note">The math gets run. The slush goes where it goes. The cars leave.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-item">
+        <span class="big-number">80+</span>
+        <span class="big-number-label">Golf Courses</span>
+        <p class="big-number-sub">Grand Strand, within reach</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">~$750</span>
+        <span class="big-number-label">Est. Per Person</span>
+        <p class="big-number-sub">Shared tab, golf separate.<br>Priced for the group, not the brochure.</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">3</span>
+        <span class="big-number-label">Major Airports</span>
+        <p class="big-number-sub">MYR direct, CLT, ATL</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The House</span></div>
+  <div class="section-header">
+    <span class="section-tag">Where We Sleep</span>
+    <h2 class="section-title">Big enough.<br><em>Close enough.</em><br>Priced right.</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="house-card">
+      <span class="card-badge" style="background: #4a7c2f;">The Play</span>
+      <div class="card-inner">
+        <h3 class="card-name">Murrells Inlet Estate</h3>
+        <p class="card-location">Murrells Inlet · Waterway Access · ~3 mi to Caledonia</p>
+        <p class="card-desc">A large private home on the Intracoastal Waterway — the kind you find when you stop looking at the oceanfront listings and start asking what a group of fifteen men actually needs. Private pool. Outdoor kitchen. Boat dock. The MarshWalk is a seven-minute drive. Caledonia is ten. TPC is fifteen. Everything close, nothing overpriced, and the porch faces water in a direction that makes sunset mandatory.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">10–12</span><span class="spec-label">Bedrooms</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Private Pool</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Boat Dock</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Outdoor Kitchen</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Waterway Views</span><span class="tag">Pool + Dock</span>
+          <span class="tag">10 min to Caledonia</span><span class="tag">15 min to TPC</span>
+          <span class="tag">7 min to MarshWalk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Golf</span></div>
+  <div class="section-header">
+    <span class="section-tag">Tee Times</span>
+    <h2 class="section-title">The Golf Capital<br><em>of the World.</em><br>That's the actual nickname.</h2>
+  </div>
+  <div class="golf-grid">
+    <div class="golf-card" style="border-color: #4a7c2f; background: linear-gradient(135deg, white 0%, rgba(74,124,47,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#4a7c2f;text-transform:uppercase;margin-bottom:12px;">★ The One You Tell People About</p>
+      <p class="golf-name">Caledonia Golf &amp; Fish Club</p>
+      <p class="golf-dist">~10 min · Pawleys Island</p>
+      <p class="golf-rating" style="color:#4a7c2f;">★★★★★ &nbsp; Top 100 Public · Golf Digest, Golf Magazine, Golfweek</p>
+      <p class="golf-note">Century-old live oaks draped in Spanish moss lining the entrance. A finishing hole over water that people are still talking about on the drive home. On every major Top 100 list since 1994. The round that justifies the trip.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">TPC Myrtle Beach</p>
+      <p class="golf-dist">~15 min · Murrells Inlet</p>
+      <p class="golf-rating">★★★★★ &nbsp; 5-star Golf Digest · Tom Fazio design</p>
+      <p class="golf-note">The only Golf Digest 5-star course on the Grand Strand. Dustin Johnson's home course. Hosted the Senior PGA Tour Championship. Water on 10 of 18 holes.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">True Blue Golf Club</p>
+      <p class="golf-dist">~12 min · Pawleys Island</p>
+      <p class="golf-rating">★★★★ &nbsp; Top 100 Golf Magazine · "Trips for Buddies"</p>
+      <p class="golf-note">Sister course to Caledonia. Golf Magazine put it on their Top 100 Trips for Buddies list specifically. As in: this course was designed for exactly what we are doing.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Tidewater Golf Club</p>
+      <p class="golf-dist">~35 min · North Myrtle Beach</p>
+      <p class="golf-rating">★★★★ &nbsp; "The Pebble Beach of the East"</p>
+      <p class="golf-note">Marsh views, Intracoastal Waterway, Atlantic in the distance. The par-3 12th requires a tee shot over tidal creeks. Worth the drive north if the group has one more round in them.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Seafood</span></div>
+  <div class="section-header">
+    <span class="section-tag">The MarshWalk</span>
+    <h2 class="section-title">Murrells Inlet.<br><em>Straight from the water.</em><br>No argument.</h2>
+  </div>
+  <div class="cards-grid" style="padding-bottom: 40px;">
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">The MarshWalk</h3>
+        <p class="card-location">Murrells Inlet · Waterfront · Open Air</p>
+        <p class="card-desc">A half-mile of open-air waterfront restaurants and bars running along the inlet. Boats coming in, sun going down, cold beer, fresh shrimp. Dead Dog Saloon. Wahoo's. Crab Catchers. The kind of place where nobody is in a hurry and nobody has anywhere better to be. The whole waterfront is the seafood boil. It's just where the catch comes from and where the night starts.</p>
+        <div class="card-tags">
+          <span class="tag">Waterfront</span><span class="tag">Fresh Catch</span>
+          <span class="tag">Sunset Required</span><span class="tag">7 min from house</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Logistics</span></div>
+  <div class="section-header">
+    <span class="section-tag">The Case, Summarized</span>
+    <h2 class="section-title">Easier to get to.<br><em>Cheaper to run.</em><br>More golf.</h2>
+  </div>
+  <div class="logistics-grid" style="padding-bottom: 40px;">
+    <div class="logistics-item" style="background: #1a2e1a;">
+      <span class="logistics-icon">✈️</span>
+      <span class="logistics-label">Fly Into</span>
+      <span class="logistics-value" style="color:#a8c86e;">MYR Direct</span>
+      <p class="logistics-sub">Myrtle Beach Intl.<br>Or Charlotte (CLT), Atlanta (ATL)</p>
+    </div>
+    <div class="logistics-item" style="background: #1a2e1a;">
+      <span class="logistics-icon">🏌️</span>
+      <span class="logistics-label">Golf</span>
+      <span class="logistics-value" style="color:#a8c86e;">80+ Courses</span>
+      <p class="logistics-sub">4 marquee rounds<br>All within 35 minutes</p>
+    </div>
+    <div class="logistics-item" style="background: #1a2e1a;">
+      <span class="logistics-icon">💰</span>
+      <span class="logistics-label">Est. Cost</span>
+      <span class="logistics-value" style="color:#a8c86e;">~$750/person</span>
+      <p class="logistics-sub">Shared tab, excl. golf<br>Priced to do it right, not impress.</p>
+    </div>
+    <div class="logistics-item" style="background: #1a2e1a;">
+      <span class="logistics-icon">🦐</span>
+      <span class="logistics-label">Seafood</span>
+      <span class="logistics-value" style="color:#a8c86e;">MarshWalk</span>
+      <p class="logistics-sub">Seven minutes from the house.<br>All of it fresh.</p>
+    </div>
+    <div class="logistics-item" style="background: #1a2e1a;">
+      <span class="logistics-icon">🎰</span>
+      <span class="logistics-label">The Bet</span>
+      <span class="logistics-value" style="color:#a8c86e;">TBD</span>
+      <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
+    </div>
+    <div class="logistics-item" style="background: #1a2e1a;">
+      <span class="logistics-icon">🌅</span>
+      <span class="logistics-label">Vibe</span>
+      <span class="logistics-value" style="color:#a8c86e;">Earned, Not Pretended</span>
+      <p class="logistics-sub">No irony required.<br>This is exactly what it is.</p>
+    </div>
+  </div>
+
+  <div class="ocean-break" style="background: #1a2e1a; padding: 60px 32px 40px;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">Myrtle Beach knows what it is. The question is whether you do.</p>
+    <p class="ocean-break-text" style="color:#f5f0e8;margin-top:20px;font-size:clamp(18px,3vw,28px);">Eighty courses. Four days. Get in the car.</p>
+    <span class="ocean-break-attr" style="color:#a8c86e;margin-top:24px;display:block;">The Underdog Rests Its Case.</span>
+  </div>
+
+  <footer class="footer" style="background:#1a2e1a;">
+    <p class="footer-roman" style="-webkit-text-stroke:1px rgba(160,200,100,0.15);">III</p>
+    <span class="footer-wave">⛳</span>
+    <p class="footer-line">Eighty courses. One week. Fifteen men who know exactly what they came for.</p>
+    <p class="footer-meta" style="color:#a8c86e;">The Lads Trip II · Myrtle Beach · April 15–18, 2027</p>
+  </footer>
+
+</div><!-- /tab-myrtle -->
+
+
+<!-- ══════════════════════════════════
+     TAB IV — ISLE OF PALMS
+══════════════════════════════════ -->
+<div id="tab-iop" class="tab-panel">
+
+  <div class="photo-hero">
+    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1559060017-445f818a6e8a?w=1600&q=80');"></div>
+    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(30,20,10,0.93) 0%, rgba(30,20,10,0.55) 50%, rgba(30,20,10,0.15) 100%);"></div>
+    <div class="photo-hero-content">
+      <p class="photo-hero-eyebrow" style="color:#d4a96a;">The Civilized Option</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:#d4a96a;">II</em></h1>
+      <p class="photo-hero-sub">Isle of Palms &nbsp;·&nbsp; Charleston, South Carolina</p>
+      <div class="photo-hero-meta">
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">When</span>
+          <span class="photo-hero-meta-value">April 15–18, 2027</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">The City</span>
+          <span class="photo-hero-meta-value">Charleston</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Est. Cost</span>
+          <span class="photo-hero-meta-value">~$1,100–1,300</span>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue">↓ scroll</span>
+  </div>
+
+  <section class="prose-section">
+    <p class="drop-cap">Every group has one trip where they look back and say: that was the one where we did it right. Not louder, not cheaper, not more golf — right. Isle of Palms is that trip. It is what happens when you take everything this group loves and put it inside a place that was designed, over three centuries, to be worth the journey.</p>
+    <p>The island itself is a seven-mile barrier island thirty minutes northeast of downtown Charleston. Wide Atlantic beach, palmetto trees, marsh on the western side catching the last light of the afternoon. The houses on Isle of Palms are the kind with proper wraparound porches and outdoor showers and the ocean visible from the kitchen window. Wild Dunes Resort sits on the eastern tip — two Tom Fazio courses, the Links and the Harbor, built into the dunes with the Atlantic framing the finishing hole of the Links in a way Fazio himself has called one of his favorites.</p>
+    <p>And then there is Charleston. Forty-five minutes from Kiawah Island and the Ocean Course — Pete Dye's masterpiece, host of the 1991 Ryder Cup, the 2012 and 2021 PGA Championships, ranked among the hardest courses in America. The city itself is a night out unlike anything else on the South Carolina coast. King Street. The bars in the French Quarter. Husk. FIG. The kind of dinner that requires a reservation and justifies the effort.</p>
+    <div class="pull-quote">
+      <p>The Ocean Course at Kiawah is the single most significant public golf course in America. The 1991 Ryder Cup happened here. Both the 2012 and 2021 PGA Championships happened here. This is the round you call your father about.</p>
+    </div>
+    <p>The pitch is not that Isle of Palms is the cheapest or the most convenient. It is neither. The pitch is that fifteen men who have known each other for fifteen years deserve, once in a while, to do it properly. <strong>The island. The city. The courses. The dinner.</strong> The version of the trip that, twenty years from now, still gets brought up when someone's kid asks what their dad was like when he was young.</p>
+    <p>That is what Charleston is for.</p>
+  </section>
+
+  <div class="ocean-break" style="background:#2a1f14;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">"Tom Fazio's first golf course design. The finishing hole looks at the Atlantic Ocean. He still says it's one of his favorites."</p>
+    <span class="ocean-break-attr" style="color:#d4a96a;">— Wild Dunes Links Course, Isle of Palms</span>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-header">
+    <span class="section-tag">How It Goes</span>
+    <h2 class="section-title">Four days.<br><em>The rough plan.</em></h2>
+  </div>
+
+  <div class="itinerary-section" style="padding-top: 40px;">
+    <p class="itinerary-header">Thu – Sun · April 15–18</p>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Arrive · CHS into Charleston · 30 min to IOP</span>
+          <span class="itinerary-note">Charleston International (CHS) is one of the easiest airport-to-house runs of any option. Delta direct from Atlanta is under an hour in the air.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Porch beers · Groceries · Low key first night</span>
+          <span class="itinerary-note">The porch faces the Atlantic. This is the night the group remembers why it said yes.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Fri<br>Apr 16</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 1 — Wild Dunes Links Course</span>
+          <span class="itinerary-note">5 minutes from the house. Tom Fazio's first-ever design. Still one of his favorites. The finishing hole overlooks the Atlantic. Walk or golf cart from the rental.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Beach · Pool · Lowcountry provisions</span>
+          <span class="itinerary-note">Shrimp and grits on Friday night at the house. Someone finds the local seafood market. This is non-negotiable.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sat<br>Apr 17</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 2 — The Ocean Course, Kiawah Island</span>
+          <span class="itinerary-note">45 minutes. Caddie required. Ryder Cup 1991. PGA Championship 2012 and 2021. Phil Mickelson at 50. Budget $250–300 per player. This is the round the trip is remembered for.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Charleston — dinner, King Street, the long night</span>
+          <span class="itinerary-note">Reservation at Husk or FIG. Then King Street. Then the French Quarter. The city that makes you feel like you have your life together. Plan the Uber. This night runs late.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sun<br>Apr 18</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 3 optional — Harbor Course or Osprey Point</span>
+          <span class="itinerary-note">Wild Dunes Harbor is 5 minutes away. Osprey Point at Kiawah (Tom Fazio) is 45 minutes. The group decides Sunday morning based on Saturday night's casualties.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Midday</span>
+          <span class="itinerary-activity">Settle the bet · Pack out</span>
+          <span class="itinerary-note">Someone runs the numbers. The cars head to CHS. The flight home is short enough that nobody minds.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-item">
+        <span class="big-number">2</span>
+        <span class="big-number-label">Ryder Cups &amp; PGAs</span>
+        <p class="big-number-sub">Kiawah Ocean Course, 45 min away</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">7</span>
+        <span class="big-number-label">Miles of beach</span>
+        <p class="big-number-sub">Isle of Palms, Atlantic-facing</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">1</span>
+        <span class="big-number-label">City worth the night out</span>
+        <p class="big-number-sub">Charleston. Obviously.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The House</span></div>
+  <div class="section-header">
+    <span class="section-tag">Where We Sleep</span>
+    <h2 class="section-title">A proper<br><em>Lowcountry</em><br>estate.</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="house-card">
+      <span class="card-badge" style="background:#7a5c2e;">The Play</span>
+      <div class="card-inner">
+        <h3 class="card-name">Isle of Palms Oceanfront</h3>
+        <p class="card-location">Isle of Palms · Wild Dunes Area · Beachfront</p>
+        <p class="card-desc">A large private home on the island — wraparound porches, outdoor shower, private pool, the ocean starting where the yard ends. Ten to twelve bedrooms depending on configuration. Golf cart in the garage. The beach is not a walk; it is a step off the porch. Wild Dunes' two Tom Fazio courses are minutes away. Downtown Charleston is thirty.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">10–12</span><span class="spec-label">Bedrooms</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Private Pool</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Oceanfront</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Golf Cart</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Beachfront</span><span class="tag">Pool</span>
+          <span class="tag">5 min to Wild Dunes Golf</span>
+          <span class="tag">30 min to Charleston</span><span class="tag">45 min to Kiawah</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Golf</span></div>
+  <div class="section-header">
+    <span class="section-tag">Tee Times</span>
+    <h2 class="section-title">The Ryder Cup course.<br><em>Two PGA Championships.</em><br>This is the one.</h2>
+  </div>
+  <div class="golf-grid">
+    <div class="golf-card" style="border-color:#7a5c2e;background:linear-gradient(135deg,white 0%,rgba(122,92,46,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#7a5c2e;text-transform:uppercase;margin-bottom:12px;">★ The Bucket List Round</p>
+      <p class="golf-name">The Ocean Course at Kiawah Island</p>
+      <p class="golf-dist">~45 min · Kiawah Island</p>
+      <p class="golf-rating" style="color:#7a5c2e;">★★★★★ &nbsp; 1991 Ryder Cup · 2012 &amp; 2021 PGA Championship · Pete Dye</p>
+      <p class="golf-note">Ten of eighteen holes with Atlantic views. Natural dunes, sea oats, marshland, water. The par-3 17th over water. Caddie required. Phil Mickelson won the 2021 PGA here at age 50. This is the round you tell your grandchildren about.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Links Course at Wild Dunes</p>
+      <p class="golf-dist">5 min · Isle of Palms</p>
+      <p class="golf-rating">★★★★★ &nbsp; Tom Fazio's first design · Atlantic finishing hole</p>
+      <p class="golf-note">Tom Fazio's very first course. Still one of his favorites. The final three holes play along the Atlantic. Newly renovated layout, walkable from the house.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Harbor Course at Wild Dunes</p>
+      <p class="golf-dist">5 min · Isle of Palms</p>
+      <p class="golf-rating">★★★★ &nbsp; Tom Fazio · Intracoastal Waterway views</p>
+      <p class="golf-note">The tighter, more strategic counterpart to the Links. Salt marshes, lagoons, Intracoastal Waterway running alongside. Recently renovated. The round where the score stops mattering somewhere around the 9th hole.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Osprey Point, Kiawah Island</p>
+      <p class="golf-dist">~45 min · Kiawah Island</p>
+      <p class="golf-rating">★★★★ &nbsp; Tom Fazio · The Other Kiawah</p>
+      <p class="golf-note">Tom Fazio's Kiawah alternative when a second round makes sense. Waterways, maritime forests, natural elements. The course that put Fazio on the map before he was a household name.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The City</span></div>
+  <div class="section-header">
+    <span class="section-tag">One Night in Charleston</span>
+    <h2 class="section-title">Charleston.<br><em>One night.</em><br>Worth the drive.</h2>
+  </div>
+  <div class="cards-grid" style="padding-bottom: 40px;">
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">Downtown Charleston</h3>
+        <p class="card-location">30 min · King Street · The French Quarter · The Peninsula</p>
+        <p class="card-desc">Named America's best city more times than anyone can keep count of. King Street for bars and oysters. The French Quarter for the kind of streets that make you slow down. Husk. FIG. The bars that stay open late and have live music and no cover. Charleston has history in the walls and good bourbon on every corner and a waterfront that looks like something a city earned over three hundred years. One night here is worth thirty minutes in the car. Two nights changes the conversation entirely.</p>
+        <div class="card-tags">
+          <span class="tag">King Street</span><span class="tag">French Quarter</span>
+          <span class="tag">Live Music</span><span class="tag">Oyster Bars</span><span class="tag">30 min from IOP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Logistics</span></div>
+  <div class="section-header" style="padding-bottom: 0;">
+    <span class="section-tag">The Basics</span>
+    <h2 class="section-title">The island. The city.<br><em>The courses.</em><br>Four days.</h2>
+  </div>
+  <div class="logistics-grid" style="padding-bottom: 40px;">
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">🗓</span>
+      <span class="logistics-label">When</span>
+      <span class="logistics-value" style="color:#d4a96a;">Apr 15–18</span>
+      <p class="logistics-sub">Thursday arrival<br>Sunday/Monday departure</p>
+    </div>
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">✈️</span>
+      <span class="logistics-label">Fly Into</span>
+      <span class="logistics-value" style="color:#d4a96a;">CHS Direct</span>
+      <p class="logistics-sub">Charleston Intl.<br>30 min to the island</p>
+    </div>
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">🏌️</span>
+      <span class="logistics-label">Golf</span>
+      <span class="logistics-value" style="color:#d4a96a;">4 Courses</span>
+      <p class="logistics-sub">On-island + Kiawah<br>One bucket-list round</p>
+    </div>
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">🌆</span>
+      <span class="logistics-label">City Night</span>
+      <span class="logistics-value" style="color:#d4a96a;">Charleston</span>
+      <p class="logistics-sub">Best city in America.<br>30 min each way.</p>
+    </div>
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">💰</span>
+      <span class="logistics-label">Est. Cost</span>
+      <span class="logistics-value" style="color:#d4a96a;">~$1,100–1,300</span>
+      <p class="logistics-sub">Shared tab, excl. golf<br>Ocean Course adds ~$300 on top</p>
+    </div>
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">🦪</span>
+      <span class="logistics-label">Seafood</span>
+      <span class="logistics-value" style="color:#d4a96a;">Low Country</span>
+      <p class="logistics-sub">Shrimp and grits.<br>Oysters on King Street.</p>
+    </div>
+    <div class="logistics-item" style="background:#2a1f14;">
+      <span class="logistics-icon">🎰</span>
+      <span class="logistics-label">The Bet</span>
+      <span class="logistics-value" style="color:#d4a96a;">TBD</span>
+      <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
+    </div>
+  </div>
+
+  <div class="ocean-break" style="background:#2a1f14;padding:60px 32px 40px;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">Isle of Palms is the trip you do when you decide, collectively, that you've earned something worth remembering for a long time.</p>
+    <p class="ocean-break-text" style="color:#f5f0e8;margin-top:20px;font-size:clamp(18px,3vw,28px);">The Ocean Course is the argument.</p>
+    <span class="ocean-break-attr" style="color:#d4a96a;margin-top:24px;display:block;">The Civilized Option Rests Its Case.</span>
+  </div>
+
+  <footer class="footer" style="background:#2a1f14;">
+    <p class="footer-roman" style="-webkit-text-stroke:1px rgba(210,175,120,0.15);">IV</p>
+    <span class="footer-wave">🌴</span>
+    <p class="footer-line">The Ryder Cup. The PGA Championship. The Atlantic. The city. The porch. The round you call your father about.</p>
+    <p class="footer-meta" style="color:#d4a96a;">The Lads Trip II · Isle of Palms · April 15–18, 2027</p>
+  </footer>
+
+</div><!-- /tab-iop -->
+
+
+<!-- ══════════════════════════════════
+     TAB V — HILTON HEAD
+══════════════════════════════════ -->
+<div id="tab-hhh" class="tab-panel">
+
+  <div class="photo-hero">
+    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1600&q=80');"></div>
+    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(8,20,30,0.94) 0%, rgba(8,20,30,0.55) 50%, rgba(8,20,30,0.15) 100%);"></div>
+    <div class="photo-hero-content">
+      <p class="photo-hero-eyebrow" style="color:#c8b46e;">The Golf Island</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:#c8b46e;">II</em></h1>
+      <p class="photo-hero-sub">Hilton Head Island, South Carolina</p>
+      <div class="photo-hero-meta">
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">When</span>
+          <span class="photo-hero-meta-value">April 15–18, 2027</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">PGA Tour</span>
+          <span class="photo-hero-meta-value">RBC Heritage Week</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Est. Cost</span>
+          <span class="photo-hero-meta-value">~$950–1,100</span>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue">↓ scroll</span>
+  </div>
+
+  <section class="prose-section">
+    <p class="drop-cap">Hilton Head Island has been doing exactly one thing since 1969: hosting men who take golf seriously. Sea Pines founder Charles Fraser hired Pete Dye and Jack Nicklaus to build a course, then announced it would host a PGA Tour event the same year it opened. Arnold Palmer won the first one. The tradition has not stopped. Over 100,000 people show up every April. The island has spent sixty years getting ready for a group like ours.</p>
+    <p>There is a complication worth naming directly. Our dates — April 15 through 18 — land inside RBC Heritage week. The tournament runs April 14 through 20, 2027. Harbour Town is closed to public play during the event. Sea Pines access gets restricted. Rental prices spike. That is the honest picture.</p>
+    <p>The honest picture also includes this: <strong>we would be on Hilton Head Island during one of the best sporting weeks in the American South.</strong> 100,000 people in plaid. The best players in the world walking Harbour Town's tight fairways and the par-3 17th over Calibogue Sound. We could buy tickets, watch a round, and still play three other marquee courses — Palmetto Dunes has three on property, and Crescent Pointe in Bluffton is unaffected by tournament restrictions entirely.</p>
+    <div class="pull-quote">
+      <p>Harbour Town is a Pete Dye and Jack Nicklaus design ranked second among all PGA Tour courses by Golf Digest — behind only Augusta National. The week we're there, the best players in the world will be walking the same fairways.</p>
+    </div>
+    <p>The Salty Dog Café has been on South Beach Marina since 1987. It is open-air, on the water, serves the kind of seafood that comes in that morning, and is the place everybody ends up after dark. It does not need to be anything else.</p>
+    <p>Hilton Head is a barrier island with 12 miles of beach, 30 championship courses, and a nightlife scene built for visitors who know what they want. The question is whether watching a PGA Tour event is a reason to go or a reason to adjust the dates. That is the decision this pitch is asking you to make.</p>
+  </section>
+
+  <div class="ocean-break" style="background:#0e1f2e;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">"Ranked #2 among all PGA Tour courses by Golf Digest. Behind only Augusta National. The island has been ready for us since 1969."</p>
+    <span class="ocean-break-attr" style="color:#c8b46e;">— Harbour Town Golf Links · Hilton Head Island</span>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-header">
+    <span class="section-tag">How It Goes</span>
+    <h2 class="section-title">Four days.<br><em>Tournament week.</em><br>Eyes open.</h2>
+  </div>
+
+  <div class="itinerary-section" style="padding-top: 40px;">
+    <p class="itinerary-header">Thu – Sun · April 15–18</p>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Arrive · HHH or SAV · House open</span>
+          <span class="itinerary-note">Hilton Head Airport (HHH) is the easiest option — tiny, no crowds, 20 minutes to most houses. Savannah (SAV) is 50 minutes and has more direct routes from Atlanta.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Salty Dog Café — South Beach Marina</span>
+          <span class="itinerary-note">Open since 1987. Waterfront, cold beer, seafood, live music on the dock. First night sets the tone. The island is buzzing — RBC Heritage practice rounds are happening.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Fri<br>Apr 16</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 1 — Palmetto Dunes (Robert Trent Jones)</span>
+          <span class="itinerary-note">Three courses on property. The RTJ course has one of only two oceanfront holes on the island. Wide fairways, forgiving. The morning round before the island takes hold.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Tournament tickets — watch Harbour Town</span>
+          <span class="itinerary-note">Buy grounds tickets in advance. Walk the course, watch a marquee pairing, stand on 17 and watch it play. This is what tournament week is for.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Seafood boil at the house</span>
+          <span class="itinerary-note">Find the local equivalent of Mark. The island has the supply. Someone finds the supplier.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sat<br>Apr 17</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 2 — George Fazio Course, Palmetto Dunes</span>
+          <span class="itinerary-note">The island's only par-70. Consistently called Palmetto Dunes' toughest test. Long par-4s, bunkers, angled water hazards. The round where the scorecard becomes a lie.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Tournament — moving day at Harbour Town</span>
+          <span class="itinerary-note">Saturday is moving day on the PGA Tour. The leaderboard compresses. This is the round worth watching. The 17th has boats in the sound watching from the water.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Night</span>
+          <span class="itinerary-activity">Back to South Beach — the long version</span>
+          <span class="itinerary-note">Saturday night in Hilton Head. The Salty Dog gets the group back. Plan accordingly.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sun<br>Apr 18</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 3 — Crescent Pointe, Bluffton</span>
+          <span class="itinerary-note">Arnold Palmer design 20 minutes across the bridge. Unaffected by tournament restrictions. Island green on the 9th. Final three holes on the Colleton River. The round that's always available.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Midday</span>
+          <span class="itinerary-activity">Settle the bet · Pack out · Head to HHH or SAV</span>
+          <span class="itinerary-note">The numbers get run. The tournament finishes Sunday afternoon — the defending champion will fire the ceremonial cannon shot into Calibogue Sound while we're packing.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tournament callout -->
+  <div style="max-width:760px;margin:0 auto;padding:0 24px 60px;background:var(--sand);">
+    <div style="border:1px solid rgba(200,180,110,0.4);padding:28px 32px;background:rgba(200,180,110,0.05);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.28em;color:#c8b46e;text-transform:uppercase;margin-bottom:12px;">⚑ Tournament Week — What It Means</p>
+      <p style="font-size:15px;line-height:1.75;color:#2a2a2a;margin-bottom:12px;">The RBC Heritage runs April 14–20, 2027 (est.). Our dates April 15–18 overlap Thursday through Sunday — the competitive rounds. <strong>Harbour Town is closed to public play during the event.</strong> Sea Pines has restricted vehicle access. Rental rates on the island are at peak pricing.</p>
+      <p style="font-size:15px;line-height:1.75;color:#2a2a2a;"><strong>What you get instead:</strong> Tickets to watch a PGA Tour Signature Event. Three other strong courses easily accessible. The Salty Dog, 12 miles of beach, and the full island operating normally. This is a tradeoff, not a dealbreaker.</p>
+    </div>
+  </div>
+
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-item">
+        <span class="big-number">30+</span>
+        <span class="big-number-label">Championship courses</span>
+        <p class="big-number-sub">On the island and Bluffton</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">1969</span>
+        <span class="big-number-label">First RBC Heritage</span>
+        <p class="big-number-sub">Arnold Palmer. Year one.</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">⚠️</span>
+        <span class="big-number-label">Tournament week</span>
+        <p class="big-number-sub">Our dates overlap the RBC Heritage.<br>Eyes open.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The House</span></div>
+  <div class="section-header">
+    <span class="section-tag">Where We Sleep</span>
+    <h2 class="section-title">Twelve miles<br>of <em>beach.</em><br>A house on it.</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="house-card">
+      <span class="card-badge" style="background:#5a7a3a;">The Play</span>
+      <div class="card-inner">
+        <h3 class="card-name">Palmetto Dunes / Forest Beach House</h3>
+        <p class="card-location">Hilton Head Island · Oceanfront · Pool</p>
+        <p class="card-desc">A large private home inside one of Hilton Head's oceanfront resort communities. Three Palmetto Dunes courses are walkable or a short cart ride away. The beach is direct. Pool on property. The houses here were built for groups and they show it — multiple living areas, outdoor kitchens, space to spread out without disappearing. Tournament week drives prices up but the inventory exists.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">10–12</span><span class="spec-label">Bedrooms</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Private Pool</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Oceanfront</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Golf Nearby</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Oceanfront</span><span class="tag">Pool</span>
+          <span class="tag">Walk to Palmetto Dunes</span><span class="tag">Fly into HHH or SAV</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Golf</span></div>
+  <div class="section-header">
+    <span class="section-tag">Tee Times</span>
+    <h2 class="section-title">The PGA Tour<br>is playing<br><em>while we are here.</em></h2>
+  </div>
+  <div class="golf-grid">
+    <div class="golf-card" style="border-color:#c8b46e;background:linear-gradient(135deg,white 0%,rgba(200,180,110,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#c8b46e;text-transform:uppercase;margin-bottom:12px;">★ Watch It, Don't Play It</p>
+      <p class="golf-name">Harbour Town Golf Links</p>
+      <p class="golf-dist">Sea Pines Resort · Tournament Week</p>
+      <p class="golf-rating" style="color:#c8b46e;">★★★★★ &nbsp; Pete Dye + Jack Nicklaus · #2 PGA Tour Course, Golf Digest</p>
+      <p class="golf-note">Closed to public play during RBC Heritage. But we would be there watching it. The par-3 17th over Calibogue Sound. The defending champion fires a cannon shot into the sound to open the tournament. Buy tickets. That is not nothing.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Palmetto Dunes — Three Courses</p>
+      <p class="golf-dist">On property · Robert Trent Jones, George Fazio, Arthur Hills</p>
+      <p class="golf-rating">★★★★ &nbsp; SC Golf Course of the Year · Oceanfront par-5 10th</p>
+      <p class="golf-note">Three championship layouts, all public, all within the same resort. The RTJ course has one of only two oceanfront holes on the island. The Fazio is the island's toughest par-70. Three rounds without moving the car.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Atlantic Dunes — Sea Pines</p>
+      <p class="golf-dist">Sea Pines Resort · Davis Love III redesign</p>
+      <p class="golf-rating">★★★★ &nbsp; Original 1962 Ocean Course · Water on nearly every hole</p>
+      <p class="golf-note">The island's first course, rebuilt by Davis Love III. Water on almost every hole, Spanish moss oaks, gators. The par-3 15th plays to a beachfront green. Sea Pines access during tournament hours is the planning variable.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Crescent Pointe — Bluffton</p>
+      <p class="golf-dist">~20 min · Bluffton · Arnold Palmer design</p>
+      <p class="golf-rating">★★★★ &nbsp; Island-green par-3 9th · Colleton River finish</p>
+      <p class="golf-note">Arnold Palmer signature course across the bridge in Bluffton — unaffected by tournament restrictions. Island green on the 9th over marsh. Final three holes run along the Colleton River. Always available.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Night</span></div>
+  <div class="section-header">
+    <span class="section-tag">After Dark</span>
+    <h2 class="section-title">The Salty Dog.<br><em>South Beach Marina.</em><br>Since 1987.</h2>
+  </div>
+  <div class="cards-grid" style="padding-bottom:40px;">
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">The Salty Dog Café</h3>
+        <p class="card-location">South Beach Marina · Sea Pines · Since 1987</p>
+        <p class="card-desc">Open-air waterfront restaurant and bar on South Beach Marina in Sea Pines. Fresh seafood, cold beer, live music on the dock. The kind of place that has been the same since 1987 because there is no reason to change it. After a round at Palmetto Dunes or a day at the tournament, the Salty Dog is where you end up. During RBC Heritage week the island is buzzing — this is the local answer to all of it.</p>
+        <div class="card-tags">
+          <span class="tag">South Beach Marina</span><span class="tag">Waterfront</span>
+          <span class="tag">Live Music</span><span class="tag">Fresh Seafood</span><span class="tag">Sea Pines</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Logistics</span></div>
+  <div class="section-header">
+    <span class="section-tag">The Basics</span>
+    <h2 class="section-title">The Golf Island.<br><em>Tournament week.</em><br>Eyes open.</h2>
+  </div>
+  <div class="logistics-grid" style="padding-bottom:40px;">
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">🗓</span>
+      <span class="logistics-label">When</span>
+      <span class="logistics-value" style="color:#c8b46e;">Apr 15–18</span>
+      <p class="logistics-sub">RBC Heritage runs Apr 14–20.<br>We overlap Fri–Tue.</p>
+    </div>
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">✈️</span>
+      <span class="logistics-label">Fly Into</span>
+      <span class="logistics-value" style="color:#c8b46e;">HHH or SAV</span>
+      <p class="logistics-sub">Hilton Head direct<br>or Savannah (50 min drive)</p>
+    </div>
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">🏌️</span>
+      <span class="logistics-label">Golf</span>
+      <span class="logistics-value" style="color:#c8b46e;">4 Courses</span>
+      <p class="logistics-sub">3 at Palmetto Dunes + Crescent Pointe<br>Harbour Town: watch, not play</p>
+    </div>
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">🎟️</span>
+      <span class="logistics-label">Tournament</span>
+      <span class="logistics-value" style="color:#c8b46e;">Optional</span>
+      <p class="logistics-sub">Buy tickets, watch a round.<br>Or skip it entirely.</p>
+    </div>
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">💰</span>
+      <span class="logistics-label">Est. Cost</span>
+      <span class="logistics-value" style="color:#c8b46e;">~$950–1,100</span>
+      <p class="logistics-sub">Shared tab, excl. golf<br>Tournament week premium on rentals</p>
+    </div>
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">🦀</span>
+      <span class="logistics-label">Seafood</span>
+      <span class="logistics-value" style="color:#c8b46e;">The Salty Dog</span>
+      <p class="logistics-sub">South Beach Marina.<br>Since 1987. Still right.</p>
+    </div>
+    <div class="logistics-item" style="background:#0e1f2e;">
+      <span class="logistics-icon">🎰</span>
+      <span class="logistics-label">The Bet</span>
+      <span class="logistics-value" style="color:#c8b46e;">TBD</span>
+      <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
+    </div>
+  </div>
+
+  <div class="ocean-break" style="background:#0e1f2e;padding:60px 32px 40px;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">Hilton Head has been the Golf Island since 1969. Our dates land on tournament week. That is a complication and an opportunity in equal measure.</p>
+    <p class="ocean-break-text" style="color:#f5f0e8;margin-top:20px;font-size:clamp(18px,3vw,28px);">Get your plaid on.</p>
+    <span class="ocean-break-attr" style="color:#c8b46e;margin-top:24px;display:block;">The Golf Island Rests Its Case.</span>
+  </div>
+
+  <footer class="footer" style="background:#0e1f2e;">
+    <p class="footer-roman" style="-webkit-text-stroke:1px rgba(200,180,110,0.15);">V</p>
+    <span class="footer-wave">🏌️</span>
+    <p class="footer-line">Pete Dye. Jack Nicklaus. Arnold Palmer. The RBC Heritage. The Salty Dog. The island has been ready since 1969.</p>
+    <p class="footer-meta" style="color:#c8b46e;">The Lads Trip II · Hilton Head Island · April 15–18, 2027</p>
+  </footer>
+
+</div><!-- /tab-hhh -->
+
+
+<!-- ══════════════════════════════════
+     TAB VI — ST. SIMONS ISLAND
+══════════════════════════════════ -->
+<div id="tab-ssi" class="tab-panel">
+
+  <div class="photo-hero">
+    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1566438480900-0609be27a4be?w=1600&q=80');"></div>
+    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(10,25,15,0.95) 0%, rgba(10,25,15,0.6) 50%, rgba(10,25,15,0.15) 100%);"></div>
+    <div class="photo-hero-content">
+      <p class="photo-hero-eyebrow" style="color: #8fbc8f;">The Home Game</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color: #8fbc8f;">II</em></h1>
+      <p class="photo-hero-sub">St. Simons Island, Georgia</p>
+      <div class="photo-hero-meta">
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">When</span>
+          <span class="photo-hero-meta-value">April 15–18, 2027</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Drive from Atlanta</span>
+          <span class="photo-hero-meta-value">4.5 hours</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Prior incidents</span>
+          <span class="photo-hero-meta-value">3 documented</span>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue">↓ scroll</span>
+  </div>
+
+  <section class="prose-section">
+    <p class="drop-cap">There is a version of this pitch that sells St. Simons Island on its merits — the Spanish moss, the live oaks, the barrier island beauty, the King and Prince, Crab Daddy's, the marshes at low tide. That pitch is accurate and it is not the one this group needs. This group needs the other pitch. The one that starts with: we have been here before, and it did not go the way anyone planned, and that is exactly why we should go back.</p>
+
+    <p>Georgia-Florida weekend. You know this story or you were in it. Peyton got arrested. The specific details of this incident are not included here because they do not need to be — the men who were there remember, and the men who weren't will ask, and that question is the beginning of a very good first night at whatever house we rent. Mack almost drowned. Yang dressed as a Rubik's cube. These are the three sentences that constitute the complete institutional record of the group's prior St. Simons experience, and they are sufficient.</p>
+
+    <div class="pull-quote">
+      <p>St. Simons Island is 4.5 hours from Atlanta. Nobody flies. Everybody drives. There is no easier trip in this field, and no trip with more unfinished business.</p>
+    </div>
+
+    <p>The island itself is Georgia's largest barrier island. Spanish moss draping every oak. The lighthouse has been there since 1872. Fort Frederica is a national monument. Crab Daddy's is on Ocean Boulevard and the shrimp comes from the boats. The King and Prince Golf Course winds through ancient coastal forests and salt marshes — eighteen holes that were carved, hole by hole, out of small marsh islands. The Sea Island Seaside Course is Tom Fazio's redesign of a 1929 classic and is among the top 100 courses in America. <strong>It is for resort guests and members, which means we need to either stay at Sea Island or find someone who is a member.</strong> This is a problem worth solving.</p>
+
+    <p>There is no Flora-Bama equivalent on St. Simons. There is the Village, which is a collection of bars and restaurants around the pier that stays open late and has the right energy. There is Crab Daddy's, which is the answer to every seafood question. There is the beach at East Beach, which is uncrowded and correct. And there is the particular energy of men returning to a place where things went wrong and deciding, collectively, that this time will be different. It probably won't be different. That is also fine.</p>
+  </section>
+
+  <div class="ocean-break" style="background: #0d2010;">
+    <p class="ocean-break-text" style="color: #f5f0e8;">"Peyton got arrested. Mack almost drowned. Yang was a Rubik's cube. We're going back."</p>
+    <span class="ocean-break-attr" style="color: #8fbc8f;">— The Complete Institutional Record of the Group's Prior Visit</span>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-header">
+    <span class="section-tag">How It Goes</span>
+    <h2 class="section-title">We know this island.<br><em>Kind of.</em><br>We know enough.</h2>
+  </div>
+
+  <div class="itinerary-section" style="padding-top: 40px;">
+    <p class="itinerary-header">Thu – Sun · April 15–18</p>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Drive from Atlanta · 4.5 hours · Nobody flies</span>
+          <span class="itinerary-note">I-16 to Brunswick. Over the causeway. Spanish moss on every tree. The drive is part of the arrival. This is the easiest transit of any option on this list.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Crab Daddy's · Ocean Boulevard · First night</span>
+          <span class="itinerary-note">1217 Ocean Boulevard. Waterfront seafood. The first real meal of the trip. Someone tells the story of the prior visit. Peyton clarifies the record. Mack disputes his version. Yang says nothing.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 1 — King &amp; Prince Golf Course</span>
+          <span class="itinerary-note">18 holes carved from coastal marsh islands, ancient forests, salt marshes. The King and Prince is public and bookable. Challenging layout, beautiful setting, zero pretension. The round that sets the tone for the weekend.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">East Beach · Pool · Provisions</span>
+          <span class="itinerary-note">The beach at East Beach is uncrowded and good. The pool at the house. Someone runs the grocery run. The afternoon does what it always does.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Seafood boil at the house</span>
+          <span class="itinerary-note">The island has the shrimp. Someone finds the supplier. Mark's equivalent shows up. The Thursday night formula that worked in Gulf Shores is the same formula here.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Fri<br>Apr 16</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 2 — Sea Palms Golf Club (public) or Sea Island (if someone knows a member)</span>
+          <span class="itinerary-note">Sea Palms is on-island, public, 18 holes through pine trees and live oaks with salt marsh views. Or — if anyone in this group has a Sea Island membership or knows someone who does — the Seaside Course. Tom Fazio. Top 100. This is the question to ask before booking.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Jekyll Island — optional drive</span>
+          <span class="itinerary-note">30 minutes south. The historic Jekyll Island Club. The beach is extraordinary. Worth the afternoon if the group wants to explore. The causeway over the marsh at golden hour is the best view on the Georgia coast.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">The Village — pier bars, the long night</span>
+          <span class="itinerary-note">The pier district on St. Simons. Multiple bars, outdoor seating, the right energy. This is the night where things have historically gone wrong. Plan accordingly. Possibly assign a designated responsible party. It will not help.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sat<br>Apr 17</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 3 optional — Jekyll Island Golf Club</span>
+          <span class="itinerary-note">30 minutes south, fully public, multiple courses. Oleander and Indian Mound. Set near the ocean with sea breezes. The accessible option for anyone still functional Saturday morning.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Midday</span>
+          <span class="itinerary-activity">Settle the bet · Drive home</span>
+          <span class="itinerary-note">The numbers get run. The cars leave. Atlanta is 4.5 hours. Nobody had to fly anywhere. The whole trip cost less than any option with an airport.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-item">
+        <span class="big-number">4.5</span>
+        <span class="big-number-label">Hours from Atlanta</span>
+        <p class="big-number-sub">No flights. No airports. Just I-16.</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">3</span>
+        <span class="big-number-label">Prior incidents</span>
+        <p class="big-number-sub">1 arrest. 1 near-drowning.<br>1 Rubik's cube.</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">~$700</span>
+        <span class="big-number-label">Est. Per Person</span>
+        <p class="big-number-sub">Shared tab, golf separate.<br>No flights = cheapest all-in.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Houses</span></div>
+  <div class="section-header">
+    <span class="section-tag">Where We Sleep</span>
+    <h2 class="section-title">Three options.<br><em>Three price points.</em><br>All on the island.</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="house-card">
+      <span class="card-badge" style="background: #3a6b3a;">Top Shelf</span>
+      <div class="card-inner">
+        <h3 class="card-name">VRBO #1708861</h3>
+        <p class="card-location">St. Simons Island · ~$3,526/night · Large Group</p>
+        <p class="card-desc">The premium option. The kind of house you rent when you want to spend the full four days without anyone suggesting you leave. Over four nights this runs roughly $14,000 house cost — about $930/person for fifteen men, shared tab only. If the house is the argument, this is the house.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">★</span><span class="spec-label">Top Shelf</span></div>
+          <div class="spec-item"><span class="spec-value">20</span><span class="spec-label">Guest cap</span></div>
+          <div class="spec-item"><span class="spec-value">3</span><span class="spec-label">Night min</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">St. Simons Island</span>
+          <span class="tag">Large Group</span>
+          <span class="tag">Book via VRBO</span>
+        </div>
+      </div>
+    </div>
+    <div class="house-card">
+      <span class="card-badge" style="background: #5a8a5a;">The Play</span>
+      <div class="card-inner">
+        <h3 class="card-name">VRBO #20141664ha</h3>
+        <p class="card-location">St. Simons Island · ~$2,299/night · The Right Size</p>
+        <p class="card-desc">The middle option and likely the right call. Three nights lands around $9,000 house cost — roughly $600/person shared tab. The savings over the top option go into golf rounds and the seafood boil. This is the budget that lets everyone actually enjoy the trip rather than silently calculating what they spent.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">★★</span><span class="spec-label">Best Value</span></div>
+          <div class="spec-item"><span class="spec-value">20</span><span class="spec-label">Guest cap</span></div>
+          <div class="spec-item"><span class="spec-value">~$600</span><span class="spec-label">Per person</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">St. Simons Island</span>
+          <span class="tag">Best Value</span>
+          <span class="tag">Book via VRBO</span>
+        </div>
+      </div>
+    </div>
+    <div class="house-card">
+      <span class="card-badge" style="background: #7aaa7a;">Value Play</span>
+      <div class="card-inner">
+        <h3 class="card-name">VRBO #1692387</h3>
+        <p class="card-location">St. Simons Island · ~$1,678/night · Lean and Right</p>
+        <p class="card-desc">The lean option. Three nights is roughly $5,000 house cost — about $335/person shared tab. This is the trip where the money goes entirely into golf and food and the night in the Village. The house is a base, not a destination. Valid approach, different vibe.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">★★★</span><span class="spec-label">Most Accessible</span></div>
+          <div class="spec-item"><span class="spec-value">~$335</span><span class="spec-label">House/person</span></div>
+          <div class="spec-item"><span class="spec-value">3</span><span class="spec-label">Night stay</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">St. Simons Island</span>
+          <span class="tag">Value Option</span>
+          <span class="tag">Book via VRBO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Golf</span></div>
+  <div class="section-header">
+    <span class="section-tag">Tee Times</span>
+    <h2 class="section-title">Georgia golf.<br><em>Marsh views.</em><br>One massive asterisk.</h2>
+  </div>
+  <div class="golf-grid">
+    <div class="golf-card" style="border-color: #5a8a5a; background: linear-gradient(135deg, white 0%, rgba(90,138,90,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#5a8a5a;text-transform:uppercase;margin-bottom:12px;">★ If Someone Knows a Member</p>
+      <p class="golf-name">Sea Island Golf Club — Seaside Course</p>
+      <p class="golf-dist">Sea Island · Tom Fazio redesign · Members/Resort Guests only</p>
+      <p class="golf-rating" style="color: #5a8a5a;">★★★★★ &nbsp; Top 100 US · RSM Classic PGA Tour venue · Host of G8 Summit</p>
+      <p class="golf-note">Tom Fazio's redesign of the 1929 H.S. Colt original. Scottish links-style with tidal creeks, dunes, salt marshes, and the Atlantic. The RSM Classic PGA Tour event is played here every fall. Access requires a Sea Island membership or resort stay. This is the round worth solving for. Does anyone in this group know a member?</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">King &amp; Prince Golf Course</p>
+      <p class="golf-dist">North end of the island · Public · Joe Lee design</p>
+      <p class="golf-rating">★★★★ &nbsp; Top Courses in Georgia · Golfers Choice</p>
+      <p class="golf-note">18 holes carved out of small coastal marsh islands. Ancient emerald forests, salt marshes, and island holes that require actual decisions. Fully public and bookable directly. The round that's always available regardless of who knows whom at Sea Island.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Sea Palms Golf Club</p>
+      <p class="golf-dist">Mid-island · Public · 18 holes</p>
+      <p class="golf-rating">★★★★ &nbsp; Salt marsh views · Pine trees · Local favorite</p>
+      <p class="golf-note">On-island public course with views of the salt marshes and lagoons. Dense pine trees, towering live oaks. The affordable option that locals actually play. Clubhouse with restaurant for the 19th hole that ends up being two hours longer than anyone planned.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Jekyll Island Golf Club</p>
+      <p class="golf-dist">~30 min south · Jekyll Island · Public · Multiple courses</p>
+      <p class="golf-rating">★★★★ &nbsp; Oleander + Indian Mound · Set near the Atlantic</p>
+      <p class="golf-note">Fully public, 30 minutes south, multiple courses. Joe Lee's Indian Mound winds through the island's natural landscape. Gentle sea breezes, short grasses, views of the ocean. The Saturday morning option for anyone still operational after Friday night in the Village.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Seafood</span></div>
+  <div class="section-header">
+    <span class="section-tag">1217 Ocean Boulevard</span>
+    <h2 class="section-title">Crab Daddy's.<br><em>St. Simons Island.</em><br>Simple as that.</h2>
+  </div>
+  <div class="cards-grid" style="padding-bottom: 40px;">
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">Crab Daddy's Seafood Grill</h3>
+        <p class="card-location">1217 Ocean Boulevard · St. Simons Island · (912) 634-1120</p>
+        <p class="card-desc">Waterfront seafood on Ocean Boulevard. The kind of place that does one thing and does it correctly: fresh Georgia coast seafood, cold beer, outdoor seating, and no reason to be anywhere else. The first-night restaurant and the answer to at least two other meals during the weekend. Not trying to be fancy. Correct about not trying.</p>
+        <div class="card-tags">
+          <span class="tag">Ocean Boulevard</span>
+          <span class="tag">Fresh Georgia Seafood</span>
+          <span class="tag">Outdoor Seating</span>
+          <span class="tag">The Answer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Logistics</span></div>
+  <div class="section-header">
+    <span class="section-tag">The Case</span>
+    <h2 class="section-title">Closest drive.<br><em>Best history.</em><br>Unfinished business.</h2>
+  </div>
+  <div class="logistics-grid" style="padding-bottom: 40px;">
+    <div class="logistics-item" style="background: #0d2010;">
+      <span class="logistics-icon">🚗</span>
+      <span class="logistics-label">Get There</span>
+      <span class="logistics-value" style="color: #8fbc8f;">Drive. 4.5 hrs.</span>
+      <p class="logistics-sub">I-16 to Brunswick.<br>Nobody flies. Nobody needs to.</p>
+    </div>
+    <div class="logistics-item" style="background: #0d2010;">
+      <span class="logistics-icon">🏌️</span>
+      <span class="logistics-label">Golf</span>
+      <span class="logistics-value" style="color: #8fbc8f;">3–4 Courses</span>
+      <p class="logistics-sub">King &amp; Prince + Sea Palms public<br>Sea Island if someone knows a member</p>
+    </div>
+    <div class="logistics-item" style="background: #0d2010;">
+      <span class="logistics-icon">💰</span>
+      <span class="logistics-label">Est. Cost</span>
+      <span class="logistics-value" style="color: #8fbc8f;">~$700/person</span>
+      <p class="logistics-sub">Shared tab, golf separate.<br>No flights saves everyone money.</p>
+    </div>
+    <div class="logistics-item" style="background: #0d2010;">
+      <span class="logistics-icon">🦀</span>
+      <span class="logistics-label">Seafood</span>
+      <span class="logistics-value" style="color: #8fbc8f;">Crab Daddy's</span>
+      <p class="logistics-sub">1217 Ocean Blvd.<br>The shrimp comes from the boats.</p>
+    </div>
+    <div class="logistics-item" style="background: #0d2010;">
+      <span class="logistics-icon">🍺</span>
+      <span class="logistics-label">The Night</span>
+      <span class="logistics-value" style="color: #8fbc8f;">The Village</span>
+      <p class="logistics-sub">Pier district. Multiple bars.<br>History of incident. Plan accordingly.</p>
+    </div>
+    <div class="logistics-item" style="background: #0d2010;">
+      <span class="logistics-icon">🎰</span>
+      <span class="logistics-label">The Bet</span>
+      <span class="logistics-value" style="color: #8fbc8f;">TBD</span>
+      <p class="logistics-sub">No March Madness, no squares.<br>We will find something.</p>
+    </div>
+  </div>
+
+  <div class="ocean-break" style="background: #0d2010; padding: 60px 32px 40px;">
+    <p class="ocean-break-text" style="color: #f5f0e8;">The island still has the Spanish moss. The lighthouse is still there. Crab Daddy's is still on Ocean Boulevard. The Village is still open late.</p>
+    <p class="ocean-break-text" style="color: #f5f0e8; margin-top: 20px; font-size: clamp(18px, 3vw, 28px);">Nobody ever finished what they started here.</p>
+    <span class="ocean-break-attr" style="color: #8fbc8f; margin-top: 24px; display: block;">The Home Game Rests Its Case.</span>
+  </div>
+
+  <footer class="footer" style="background: #0d2010;">
+    <p class="footer-roman" style="-webkit-text-stroke: 1px rgba(143,188,143,0.2);">VI</p>
+    <span class="footer-wave">🌿</span>
+    <p class="footer-line">Peyton got arrested. Mack almost drowned. Yang was a Rubik's cube. The island is still there. So are we.</p>
+    <p class="footer-meta" style="color: #8fbc8f;">The Lads Trip II · St. Simons Island · April 15–18, 2027</p>
+  </footer>
+
+</div><!-- /tab-ssi -->
+
+
+<!-- ══════════════════════════════════
+     TAB VII — GULF SHORES RUN IT BACK
+══════════════════════════════════ -->
+<div id="tab-gulfshorii" class="tab-panel">
+
+  <div class="photo-hero">
+    <div class="photo-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80');"></div>
+    <div class="photo-hero-overlay" style="background: linear-gradient(to top, rgba(20,5,0,0.95) 0%, rgba(20,5,0,0.6) 50%, rgba(20,5,0,0.2) 100%);"></div>
+    <div class="photo-hero-content">
+      <p class="photo-hero-eyebrow" style="color:#ff9055;">The Rematch</p>
+      <h1 class="photo-hero-title">The Lads Trip <em style="color:#ff9055;">II</em></h1>
+      <p class="photo-hero-sub">Gulf Shores, Alabama — Again. On Purpose.</p>
+      <div class="photo-hero-meta">
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Where</span>
+          <span class="photo-hero-meta-value">Gulf Shores, AL</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Last time</span>
+          <span class="photo-hero-meta-value">$865/person</span>
+        </div>
+        <div class="photo-hero-meta-item">
+          <span class="photo-hero-meta-label">Reason</span>
+          <span class="photo-hero-meta-value">Unfinished business.</span>
+        </div>
+      </div>
+    </div>
+    <span class="scroll-cue">↓ scroll</span>
+  </div>
+
+  <section class="prose-section">
+    <p class="drop-cap">There is a particular kind of courage required to say: we are going back. Not because we didn't find somewhere better. Not because the imagination failed. Because what happened there was so specifically right that the case for anywhere else is, in the end, a case against something that worked.</p>
+    <p>Gulf Shores worked. The house worked. Mark and the buckets worked. The golf worked. Flora-Bama was exactly what Flora-Bama always is — sixty years of Saturday nights compressed into one bar, playing early 2000s music in the red light while men who should probably be home hugged each other like they meant it. Connor won the raffle even though he'd gone home. Twin girls are on the way. The Cybertruck was parked diagonally in the driveway of 1477 West Beach Boulevard and it was magnificent and nobody ordered it.</p>
+    <p>The argument for going back is not nostalgia. <strong>The argument is that the first time, you were figuring out how to do this.</strong> The second time, you already know. You know which tee time to book and which market to find the crawfish at and which seat at Flora-Bama catches the best light and how to arrange fifteen men in a house so that the morning is quiet and the afternoon is loud and the night is exactly the right length. The first trip built the blueprint. The second trip is what you build with it.</p>
+    <div class="pull-quote">
+      <p>Every group that does this right has one place they return to. The Ryder Cup went back to Kiawah. The Masters goes back to Augusta. We should go back to the Gulf.</p>
+    </div>
+    <p>Aqua Vista is still there. The tiki bar still faces the Gulf of Mexico. Kiva Dunes is still the course where Kunal and Miguel independently ordered a six-pack each and discovered the coincidence somewhere around the third hole. The pilot is still reachable. We know how to find Mark. The slush pot knows how to find Connor.</p>
+    <p>Going somewhere new requires the energy of discovery. Going back requires only the willingness to admit that the first time mattered enough to do again. That is a harder thing. That is character.</p>
+  </section>
+
+  <div class="ocean-break" style="background:#1a0a00;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">"1477 West Beach Boulevard. The tiki bar. The teal Gulf. Mark at six o'clock. The pilot. Flora-Bama. Connor's name on Sunday morning."</p>
+    <span class="ocean-break-attr" style="color:#ff9055;">— Everything that worked, the first time</span>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-header">
+    <span class="section-tag">How It Goes</span>
+    <h2 class="section-title">We know this one.<br><em>That's the point.</em></h2>
+  </div>
+
+  <div class="itinerary-section" style="padding-top: 40px;">
+    <p class="itinerary-header">Thu – Sun · April 15–18</p>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Thu<br>Apr 15</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">Arrive · Pensacola (PNS) or drive</span>
+          <span class="itinerary-note">We know this route. Atlanta to Gulf Shores is 5.5 hours. Pensacola is 45 minutes from the house. The drive itself is part of the tradition.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Aqua Vista · Crico's pizza · Tiki bar</span>
+          <span class="itinerary-note">Thursday night is the same as last time. Pizza arrives. Beers come out. Fifteen men stand on the deck looking at the Gulf and remember why they came. This is not a complicated evening.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Fri<br>Apr 16</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Round 1 — Kiva Dunes</span>
+          <span class="itinerary-note">The rematch. Last time Kunal and Miguel each independently ordered a six-pack and discovered the coincidence around the third hole. This time we play it properly. Or at least that is what we tell ourselves.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Afternoon</span>
+          <span class="itinerary-activity">The pool · Golden hour · The photograph</span>
+          <span class="itinerary-note">The Friday afternoon pool at Aqua Vista in the golden hour. Someone will frame this photograph. This is known.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Mark · Six o'clock · Buckets</span>
+          <span class="itinerary-note">Book him early. Orange apron. Food-grade or otherwise. The crab legs, the shrimp, the crawfish, the sausage and corn. At eight o'clock on a Friday night fifteen men sit down to eat together on the Alabama coast and nobody is anywhere else.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sat<br>Apr 17</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Saturday split — Cotton Creek vs. the boat</span>
+          <span class="itinerary-note">Team Georgia vs Team USA rematch at Cotton Creek. John Tolliver said it had more water than the mighty Pacific. The other half goes on the water toward Pirates Cove. Same as last time. Both halves will claim they had the better morning.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Evening</span>
+          <span class="itinerary-activity">Flora-Bama · The black Ford Transit · The red light</span>
+          <span class="itinerary-note">The bus. Dinner at the Yacht Club. String lights. Then across the street. 1964. Early 2000s music. Hinder. Kevin and Nick find each other in the red light. This is non-negotiable. This is why we're here.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-day">
+      <div class="itinerary-day-label">Sun<br>Apr 18</div>
+      <div class="itinerary-day-content">
+        <div class="itinerary-item">
+          <span class="itinerary-time">Morning</span>
+          <span class="itinerary-activity">Settle the bet · Draw the name</span>
+          <span class="itinerary-note">Kevin has the announcer voice ready. Whatever we've landed on for the house pool, someone runs the numbers. A name gets called. The room makes the noise it always makes.</span>
+        </div>
+        <div class="itinerary-item">
+          <span class="itinerary-time">Midday</span>
+          <span class="itinerary-activity">Pack out · The cars go north</span>
+          <span class="itinerary-note">The bags come down. The Cybertruck is not required. The goodbyes last a beat longer than usual. Then the cars leave, one by one, and the house goes quiet.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="big-number-section">
+    <div class="big-number-grid">
+      <div class="big-number-item">
+        <span class="big-number">15</span>
+        <span class="big-number-label">Men who showed up</span>
+        <p class="big-number-sub">And know what to expect now</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">$865</span>
+        <span class="big-number-label">Per person, Trip I</span>
+        <p class="big-number-sub">Final tab: $12,981. We know the number.</p>
+      </div>
+      <div class="big-number-item">
+        <span class="big-number">1</span>
+        <span class="big-number-label">House that worked</span>
+        <p class="big-number-sub">Aqua Vista. Already vetted.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The House</span></div>
+  <div class="section-header">
+    <span class="section-tag">Where We Sleep</span>
+    <h2 class="section-title">We already know<br><em>it works.</em><br>That's the whole point.</h2>
+  </div>
+  <div class="cards-grid">
+    <div class="house-card">
+      <span class="card-badge" style="background:#c8603a;">Already Proven</span>
+      <div class="card-inner">
+        <h3 class="card-name">Aqua Vista — or its equal</h3>
+        <p class="card-location">Gulf Shores · West Beach Boulevard · Beachfront</p>
+        <p class="card-desc">Twelve bedrooms. The heated pool the color of the Caribbean. The tiki bar on the deck facing the Gulf of Mexico like a sentry post at the edge of everything. We know how the mornings work in this house. We know how the afternoons work. We know that the pool at golden hour on Friday is the photograph someone will frame. We don't need to discover this. We've already discovered it. We just need to go back.</p>
+        <div class="card-specs">
+          <div class="spec-item"><span class="spec-value">12</span><span class="spec-label">Bedrooms</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Pool</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Tiki Bar</span></div>
+          <div class="spec-item"><span class="spec-value">✓</span><span class="spec-label">Gulf Front</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Beachfront</span><span class="tag">Already Vetted</span>
+          <span class="tag">Tiki Bar</span><span class="tag">Heated Pool</span><span class="tag">Gulf of Mexico Views</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Golf</span></div>
+  <div class="section-header">
+    <span class="section-tag">Tee Times</span>
+    <h2 class="section-title">We know these courses.<br><em>We owe them</em><br>a rematch.</h2>
+  </div>
+  <div class="golf-grid">
+    <div class="golf-card" style="border-color:#c8603a;background:linear-gradient(135deg,white 0%,rgba(200,96,58,0.04) 100%);">
+      <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;color:#c8603a;text-transform:uppercase;margin-bottom:12px;">★ The One Kunal and Miguel Broke</p>
+      <p class="golf-name">Kiva Dunes Golf Course</p>
+      <p class="golf-dist">Gulf Shores · Already in the mythology</p>
+      <p class="golf-rating" style="color:#c8603a;">★★★★★ &nbsp; Ranked among the best in Alabama · Links-style · Gulf views</p>
+      <p class="golf-note">Two men. One six-pack each. Discovered around the third hole. A twelve-pack between two men on a links course in Alabama. The scorecard became theoretical. We go back and play it properly. Or at least that is what we tell ourselves.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Cotton Creek at Craft Farms</p>
+      <p class="golf-dist">Gulf Shores · The Ryder Cup venue</p>
+      <p class="golf-rating">★★★★ &nbsp; Home of the Saturday split</p>
+      <p class="golf-note">More water than the mighty Pacific. Team Georgia went out with the conviction of men on home soil. Team USA won. Mack had the scorecards. We go back and settle it properly.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Gulf Shores Golf Club</p>
+      <p class="golf-dist">Gulf Shores · In town</p>
+      <p class="golf-rating">★★★★ &nbsp; The morning warmup</p>
+      <p class="golf-note">The accessible round. The one you play before lunch when half the group is still operational and the other half is a question mark. No expectations. Just golf and the Gulf air.</p>
+    </div>
+    <div class="golf-card">
+      <p class="golf-name">Flora-Bama (Not Golf)</p>
+      <p class="golf-dist">Perdido Key · The Florida line</p>
+      <p class="golf-rating">Since 1964 · Early 2000s music · Red light</p>
+      <p class="golf-note">Not a golf course. Listed here anyway because it is non-negotiable. The black Ford Transit. The COAST medallion. The string lights. Hinder. Kevin and Nick in the red light. We know what we're going back for. Flora-Bama is half of it.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">Mark & Flora-Bama</span></div>
+  <div class="section-header">
+    <span class="section-tag">The Non-Negotiables</span>
+    <h2 class="section-title">We know<br><em>the formula.</em><br>Run it again.</h2>
+  </div>
+  <div class="cards-grid" style="padding-bottom: 40px;">
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">The Seafood Boil — Book Mark Early</h3>
+        <p class="card-location">5 O'Clock Seafood Boil Service · Friday night · Six o'clock</p>
+        <p class="card-desc">Orange apron. Teal shirt. Blue sunglasses pushed up on his head. Buckets of crab legs, shrimp, crawfish, sausage, and corn. At eight o'clock on a Friday night fifteen men sit down to eat together on the Alabama coast and nobody is anywhere else. The food-grade bucket debate begins immediately and does not stop until Tolliver stops — which is never. Book him the moment the house is confirmed. This is non-negotiable and he books up.</p>
+        <div class="card-tags">
+          <span class="tag">Friday Night</span><span class="tag">Six O'Clock</span>
+          <span class="tag">Book Early</span><span class="tag">Food-Grade Optional</span>
+        </div>
+      </div>
+    </div>
+    <div class="house-card">
+      <div class="card-inner">
+        <h3 class="card-name">Flora-Bama — Saturday Night</h3>
+        <p class="card-location">Perdido Key · The Florida Line · Since 1964</p>
+        <p class="card-desc">The black Ford Transit. The COAST medallion catching the light. Dinner at the Yacht Club — string lights, sand underfoot, picnic tables, fourteen men laughing on the last night of something good. Then across the street. 1964. Sixty years of Saturday nights. The music is live, always live. Kevin and Nick find each other somewhere in the red light. Eyes closed. Completely in it. That photograph goes on the wall. We know this. We are going back for this specifically.</p>
+        <div class="card-tags">
+          <span class="tag">Saturday Night</span><span class="tag">Ford Transit</span>
+          <span class="tag">Yacht Club Dinner</span><span class="tag">Since 1964</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"><span class="section-divider-text">The Unfinished Business</span></div>
+  <div class="section-header">
+    <span class="section-tag">What We Settle This Time</span>
+    <h2 class="section-title">Everything we got<br><em>wrong the first time.</em><br>We know what it is.</h2>
+  </div>
+  <div class="logistics-grid" style="padding-bottom: 40px;">
+    <div class="logistics-item" style="background:#1a0a00;">
+      <span class="logistics-icon">🏆</span>
+      <span class="logistics-label">Ryder Cup</span>
+      <span class="logistics-value" style="color:#ff9055;">Rematch</span>
+      <p class="logistics-sub">Team Georgia vs Team USA.<br>Mack has the scorecards.</p>
+    </div>
+    <div class="logistics-item" style="background:#1a0a00;">
+      <span class="logistics-icon">🏓</span>
+      <span class="logistics-label">Beer Pong</span>
+      <span class="logistics-value" style="color:#ff9055;">This Time We Plan</span>
+      <p class="logistics-sub">Ping pong balls purchased<br>before we leave Atlanta.</p>
+    </div>
+    <div class="logistics-item" style="background:#1a0a00;">
+      <span class="logistics-icon">🦀</span>
+      <span class="logistics-label">Mark</span>
+      <span class="logistics-value" style="color:#ff9055;">Book Him Early</span>
+      <p class="logistics-sub">Six o'clock. Orange apron.<br>Food-grade or otherwise.</p>
+    </div>
+    <div class="logistics-item" style="background:#1a0a00;">
+      <span class="logistics-icon">💰</span>
+      <span class="logistics-label">Est. Cost</span>
+      <span class="logistics-value" style="color:#ff9055;">$865/person</span>
+      <p class="logistics-sub">Shared tab, golf separate.<br>Final tab: $12,981. Exact.</p>
+    </div>
+    <div class="logistics-item" style="background:#1a0a00;">
+      <span class="logistics-icon">✈️</span>
+      <span class="logistics-label">Get There</span>
+      <span class="logistics-value" style="color:#ff9055;">Pensacola or drive</span>
+      <p class="logistics-sub">We know the route now.<br>No Cybertruck required.</p>
+    </div>
+    <div class="logistics-item" style="background:#1a0a00;">
+      <span class="logistics-icon">🎰</span>
+      <span class="logistics-label">The Bet</span>
+      <span class="logistics-value" style="color:#ff9055;">TBD</span>
+      <p class="logistics-sub">No March Madness this time.<br>Connor's daughters still too young.</p>
+    </div>
+  </div>
+
+  <div class="ocean-break" style="background:#1a0a00;padding:60px 32px 40px;">
+    <p class="ocean-break-text" style="color:#f5f0e8;">The Gulf does not care about any of this. It was there before these men and it will be there after. It held them for four days in March and released them back to their lives, which were waiting.</p>
+    <p class="ocean-break-text" style="color:#ff9055;margin-top:20px;font-size:clamp(18px,3vw,28px);">It is still waiting.</p>
+    <span class="ocean-break-attr" style="color:#ff9055;margin-top:24px;display:block;">The Roman numeral at the end of a name is a promise.</span>
+  </div>
+
+  <footer class="footer" style="background:#1a0a00;">
+    <p class="footer-roman" style="-webkit-text-stroke:1px rgba(255,100,30,0.18);">VII</p>
+    <span class="footer-wave">🌊</span>
+    <p class="footer-line">Going back is not sentimentality. It is the deliberate choice of men who know what they had.</p>
+    <p class="footer-meta" style="color:#ff9055;">The Lads Trip II · Gulf Shores · April 15–18, 2027</p>
+  </footer>
+
+</div><!-- /tab-gulfshorii -->
+
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lads Trip II — April 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="The Lads Trip II — April 2027">
+<meta property="og:description" content="North Myrtle Beach. Oceanfront. Lagoon pool. 80+ golf courses. Lock in your spot.">
+<meta property="og:image" content="https://propimages.elliottbeachrentals.com/web/ISLELAG_POOL9.jpg">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#090909;--sf:#131313;--sf2:#1a1a1a;--bd:#252525;--tx:#e8e8e8;--tx2:#999;--tx3:#666;--ac:#d4a853;--ac2:#e4bc6a;--acd:rgba(212,168,83,.06);--bl:#4a9ece;--r:8px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(212,168,83,.2)}
+img{max-width:100%;display:block}
+
+.w{max-width:1100px;margin:0 auto;padding:0 24px}
+.ws{max-width:680px;margin:0 auto;padding:0 24px}
+.ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);font-weight:400}
+h2{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:400;line-height:1.08;margin-bottom:16px}
+h2 em{font-style:italic;color:var(--ac)}
+
+#prog{position:fixed;top:0;left:0;height:1px;width:0%;background:var(--ac);z-index:9999;transition:width .06s linear}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 24px;background:rgba(9,9,9,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);transform:translateY(-100%);transition:transform .3s ease}
+.nav.on{transform:translateY(0)}
+.nav-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:50px}
+.nav-b{font-family:'Instrument Serif',serif;font-size:15px}
+.nav-b em{font-style:italic;color:var(--ac)}
+.nav-l{display:flex;gap:2px}
+.nav-l a{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);text-decoration:none;padding:6px 10px;border-radius:4px;transition:color .15s}
+.nav-l a:hover{color:var(--ac)}
+@media(max-width:768px){.nav-l{display:none}}
+
+/* Hero */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://propimages.elliottbeachrentals.com/web/ISLELAG_POOL9.jpg') center 30%/cover no-repeat}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,9,.15) 0%,rgba(9,9,9,.05) 30%,rgba(9,9,9,.75) 78%,var(--bg) 100%)}
+.hero-c{position:relative;z-index:2;padding:0 clamp(24px,5vw,72px) clamp(48px,7vh,88px);max-width:800px}
+.hero-ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);margin-bottom:20px;opacity:0;animation:fu .7s ease .2s forwards}
+.hero h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(3.2rem,9vw,7rem);line-height:.88;margin-bottom:16px;opacity:0;animation:fu .7s ease .35s forwards}
+.hero h1 span{display:block;font-style:italic;color:var(--ac)}
+.hero-sub{font-family:'Instrument Serif',serif;font-size:clamp(.95rem,1.8vw,1.2rem);font-style:italic;color:rgba(255,255,255,.45);max-width:420px;opacity:0;animation:fu .7s ease .5s forwards}
+.hero-cd{display:flex;gap:28px;margin-top:32px;opacity:0;animation:fu .7s ease .65s forwards}
+.cd-n{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);line-height:1;display:block}
+.cd-l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx3);margin-top:2px}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--bd)}
+.st{padding:28px 16px;text-align:center;border-right:1px solid var(--bd)}
+.st:last-child{border-right:none}
+.st-v{font-family:'Instrument Serif',serif;font-size:clamp(1.6rem,3vw,2.2rem);display:block}
+.st-l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--tx3);margin-top:3px}
+@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}.st{border-bottom:1px solid var(--bd)}}
+
+/* Section */
+.sec{padding:clamp(72px,10vh,110px) 0}
+.sec-dk{background:var(--sf)}
+.dv{height:1px;background:var(--bd);max-width:1100px;margin:0 auto}
+
+/* Photo grids */
+.pg{display:grid;gap:2px;margin:40px 0}
+.pg img{width:100%;height:100%;object-fit:cover}
+.pg-hero{grid-template-columns:3fr 2fr;grid-template-rows:300px 300px}
+.pg-hero .main{grid-row:1/3}
+.pg-3{grid-template-columns:1fr 1fr 1fr;grid-template-rows:220px}
+.pg-2{grid-template-columns:1fr 1fr;grid-template-rows:260px}
+@media(max-width:768px){.pg-hero{grid-template-columns:1fr;grid-template-rows:220px 180px 180px}.pg-hero .main{grid-row:auto}.pg-3{grid-template-columns:1fr 1fr;grid-template-rows:170px 170px}.pg-2{grid-template-columns:1fr;grid-template-rows:200px 200px}}
+
+/* Prose */
+.prose p{font-size:15px;line-height:1.85;color:var(--tx2);margin-bottom:20px}
+.prose strong{color:var(--tx);font-weight:500}
+
+/* Quote */
+.qt{border-left:2px solid var(--ac);padding:20px 28px;margin:36px 0;background:var(--acd)}
+.qt p{font-family:'Instrument Serif',serif!important;font-size:17px!important;font-style:italic;color:var(--tx)!important;line-height:1.55!important;margin:0!important}
+.qt-a{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--ac);margin-top:8px;display:block}
+
+/* Two col */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:768px){.two{grid-template-columns:1fr;gap:28px}}
+
+/* Tags */
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}
+.tg{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;padding:4px 9px;border:1px solid var(--bd);border-radius:3px;color:var(--tx3);text-transform:uppercase}
+
+/* Price */
+.pt{width:100%;border-collapse:collapse;margin-top:24px}
+.pt td{padding:10px 0;border-bottom:1px solid var(--bd);font-size:13px}
+.pt td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;color:var(--tx)}
+.pt td:first-child{color:var(--tx2)}
+.pt .tot td{border-top:2px solid var(--ac);border-bottom:none;padding-top:14px;font-weight:600}
+.pt .tot td:last-child{color:var(--ac);font-size:18px}
+.ph{margin-top:14px;padding:14px 16px;background:var(--acd);border:1px solid rgba(212,168,83,.12);border-radius:var(--r);text-align:center}
+.ph-b{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ac);display:block}
+.ph-s{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+
+/* Meta grid */
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.mi{padding:16px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r)}
+.mi-l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--tx3);margin-bottom:2px}
+.mi-v{font-family:'Instrument Serif',serif;font-size:22px}
+
+/* Beds */
+.bg-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:20px}
+.bg-r{padding:12px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.bg-r.k{border-left:3px solid var(--ac)}
+.bg-r.q{border-left:3px solid var(--bl)}
+.bg-t{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3)}
+
+/* Golf */
+.gc-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:40px}
+.gc{padding:24px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);transition:border-color .15s}
+.gc:hover{border-color:var(--ac)}
+.gc.ft{border-color:var(--ac);background:linear-gradient(135deg,var(--sf) 0%,var(--acd) 100%)}
+.gc-fl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.gc-n{font-family:'Instrument Serif',serif;font-size:18px;margin-bottom:3px}
+.gc-l{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.gc-s{color:var(--ac);font-size:12px;margin-bottom:6px}
+.gc-d{font-size:12px;color:var(--tx2);line-height:1.6}
+.gc-p{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac)}
+.gc-p a{color:var(--ac)}
+
+/* Pay */
+.pay-c{padding:32px 28px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);text-align:center}
+.venmo-btn{display:block;width:100%;text-align:center;background:var(--sf2);color:var(--ac);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--ac);padding:18px 24px;border-radius:var(--r);cursor:pointer;transition:all .15s;margin-bottom:14px;text-decoration:none}
+.venmo-btn:hover{background:var(--ac);color:#000}
+.pay-btn{background:var(--acd);border:1px solid rgba(212,168,83,.15);color:var(--ac);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:4px;cursor:pointer;transition:background .15s}
+.pay-btn:hover{background:rgba(212,168,83,.12)}
+
+/* Roster */
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:5px;margin-top:16px}
+.ro{padding:10px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;text-align:center;border:1px solid var(--bd);background:var(--sf);color:var(--tx3)}
+.ro.p{border-color:rgba(92,184,92,.25);background:rgba(92,184,92,.05);color:#5cb85c}
+
+/* Footer */
+.ft{padding:80px 24px 40px;text-align:center;border-top:1px solid var(--bd)}
+.ft-n{font-family:'Instrument Serif',serif;font-size:clamp(80px,22vw,200px);color:var(--sf2);line-height:.8}
+.ft-l{font-family:'Instrument Serif',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-style:italic;color:var(--tx3);max-width:400px;margin:0 auto 24px}
+.ft-m{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--tx3);text-transform:uppercase}
+.ft-link{display:inline-block;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);text-decoration:none;padding:8px 16px;border:1px solid var(--bd);border-radius:4px;transition:color .15s,border-color .15s}
+.ft-link:hover{color:var(--ac);border-color:var(--ac)}
+
+/* Reveal */
+.r{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.r.v{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <span class="nav-b">The Lads Trip <em>II</em></span>
+    <div class="nav-l">
+      <a href="#house">House</a>
+      <a href="#golf">Golf</a>
+      <a href="#weekend">Weekend</a>
+      <a href="#lockin">Lock In</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <p class="hero-ey">April 15 – 18, 2027</p>
+    <h1>The Lads<br><span>Trip II</span></h1>
+    <p class="hero-sub">North Myrtle Beach, South Carolina.<br>Oceanfront. Lagoon pool. Eighty courses.</p>
+    <div class="hero-cd">
+      <div><span class="cd-n" id="cd-d">---</span><span class="cd-l">Days</span></div>
+      <div><span class="cd-n" id="cd-h">--</span><span class="cd-l">Hours</span></div>
+      <div><span class="cd-n" id="cd-m">--</span><span class="cd-l">Min</span></div>
+      <div><span class="cd-n" id="cd-s">--</span><span class="cd-l">Sec</span></div>
+    </div>
+    <a href="#lockin" onclick="event.preventDefault();document.getElementById('lockin').scrollIntoView({behavior:'smooth'})" style="display:inline-block;margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);text-decoration:none;padding:12px 24px;border:1px solid rgba(212,168,83,.35);border-radius:var(--r);transition:all .15s;opacity:0;animation:fu .7s ease .85s forwards" onmouseover="this.style.background='rgba(212,168,83,.1)'" onmouseout="this.style.background='transparent'">Lock In Your Spot →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats r">
+  <div class="st"><span class="st-v">Apr 15–18</span><span class="st-l">Thu – Sun</span></div>
+  <div class="st"><span class="st-v">9 BR</span><span class="st-l">Oceanfront · Pool</span></div>
+  <div class="st"><span class="st-v">80+</span><span class="st-l">Golf Courses</span></div>
+  <div class="st"><span class="st-v">~$700</span><span class="st-l">Estimated All-In</span></div>
+</div>
+
+<!-- THE HOUSE -->
+<section class="sec" id="house">
+  <div class="w">
+    <span class="ey r">The House</span>
+    <h2 class="r">1000 Island <em>Lagoon</em></h2>
+    <p class="r" style="color:var(--tx2);max-width:520px">Oceanfront · Cherry Grove · 9 Bedrooms · 8 Baths · Private lagoon pool with waterfall · Hot tub · Game room · Two kitchens</p>
+
+    <div class="pg pg-hero r">
+      <img class="main" src="https://propimages.elliottbeachrentals.com/web/ISLELAG_POOL5.jpg" alt="Lagoon pool with stone waterfall">
+      <img src="https://propimages.elliottbeachrentals.com/web/ISLELAG_DRONE.jpg" alt="Aerial — oceanfront with pool">
+      <img src="https://propimages.elliottbeachrentals.com/web/ISLELAG_PTIO.jpg" alt="Covered patio bar">
+    </div>
+
+    <div class="pg pg-3 r">
+      <img src="https://propimages.elliottbeachrentals.com/web/ISLELAG_1BR.jpg" alt="King bedroom">
+      <img src="https://propimages.elliottbeachrentals.com/web/ISLELAG_KIT.jpg" alt="Kitchen">
+      <img src="https://propimages.elliottbeachrentals.com/web/ISLELAG_DECK8.jpeg" alt="Oceanfront deck">
+    </div>
+
+    <div class="two" style="margin-top:48px">
+      <div>
+        <div class="prose">
+          <p class="r"><strong>Zero-entry lagoon pool with a natural stone waterfall.</strong> Hot tub adjacent. Covered patio bar with stools underneath — two oceanfront furnished porches above. Game room with pool table, air hockey, and arcade. Two full kitchens. Nine parking spaces.</p>
+          <p class="r">4.8-star rating on Elliott Beach Rentals. Previously hosted a group of 15 for a golf weekend — rated perfect.</p>
+        </div>
+        <div class="qt r">
+          <p>"Went with 15 guys for a golf weekend. The house was great. The amenities were perfect. Beds for everyone."</p>
+          <span class="qt-a">— Guest review, Oct 2023</span>
+        </div>
+        <div class="tags r">
+          <span class="tg">Oceanfront</span><span class="tg">Lagoon Pool</span><span class="tg">Waterfall</span><span class="tg">Hot Tub</span><span class="tg">Game Room</span><span class="tg">Pool Table</span><span class="tg">2 Kitchens</span><span class="tg">Pet-Friendly</span>
+        </div>
+      </div>
+      <div>
+        <span class="ey r">Confirmed Pricing</span>
+        <table class="pt r">
+          <tr><td>Rental (3 nights)</td><td>$3,597</td></tr>
+          <tr><td>Maid + Processing</td><td>$665</td></tr>
+          <tr><td>Tax</td><td>$511</td></tr>
+          <tr class="tot"><td>Total</td><td>$4,773</td></tr>
+        </table>
+        <div class="ph r"><span class="ph-b">$239–$318</span><span class="ph-s">Per person · 15–20 guys</span></div>
+        <div class="mg r">
+          <div class="mi"><p class="mi-l">Bedrooms</p><p class="mi-v">9</p></div>
+          <div class="mi"><p class="mi-l">Baths</p><p class="mi-v">8</p></div>
+          <div class="mi"><p class="mi-l">Parking</p><p class="mi-v">9</p></div>
+          <div class="mi"><p class="mi-l">Rating</p><p class="mi-v">4.8</p></div>
+        </div>
+        <div style="margin-top:20px" class="r">
+          <a href="https://www.elliottbeachrentals.com/house/1000-island-lagoon/" target="_blank" style="display:block;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);text-decoration:none;padding:12px;border:1px solid var(--bd);border-radius:var(--r);transition:border-color .15s" onmouseover="this.style.borderColor='var(--ac)'" onmouseout="this.style.borderColor='var(--bd)'">View Full Listing</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BEDS -->
+    <div style="margin-top:48px">
+      <span class="ey r">Sleeping Arrangements</span>
+      <p class="r" style="color:var(--tx2);margin-top:8px;margin-bottom:16px;font-size:14px">20 individual beds across 9 rooms. Everyone gets their own.</p>
+      <div class="bg-g r">
+        <div class="bg-r k"><span>Room 1</span><span class="bg-t">King</span></div>
+        <div class="bg-r k"><span>Room 2</span><span class="bg-t">King</span></div>
+        <div class="bg-r k"><span>Room 3</span><span class="bg-t">King</span></div>
+        <div class="bg-r k"><span>Room 4</span><span class="bg-t">King</span></div>
+        <div class="bg-r q"><span>Room 5</span><span class="bg-t">2 Queens</span></div>
+        <div class="bg-r q"><span>Room 6</span><span class="bg-t">2 Queens</span></div>
+        <div class="bg-r q"><span>Room 7</span><span class="bg-t">2 Doubles</span></div>
+        <div class="bg-r q"><span>Room 8</span><span class="bg-t">2 Doubles</span></div>
+        <div class="bg-r q"><span>Room 9</span><span class="bg-t">4 Singles</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- GOLF -->
+<section class="sec sec-dk" id="golf">
+  <div class="w">
+    <span class="ey r">Golf</span>
+    <h2 class="r">Eighty courses. <em>Four that matter.</em></h2>
+
+    <div class="pg pg-2 r">
+      <img src="https://admin.tpcmyrtlebeach.com/wp-content/uploads/2026/04/DJI_0723-HDR-1-copy-scaled.jpg" alt="TPC Myrtle Beach — dawn">
+      <img src="https://admin.tpcmyrtlebeach.com/wp-content/uploads/2026/04/TPC-17th-scaled.jpg" alt="TPC 17th hole">
+    </div>
+
+    <div class="gc-g">
+      <div class="gc ft r"><p class="gc-fl">Top 100 Since 1994</p><p class="gc-n">Caledonia Golf & Fish Club</p><p class="gc-l">Pawleys Island · Par 72 · 6,526 yds · Slope 135</p><p class="gc-s">4.5 / 5 (627 reviews)</p><p class="gc-d">Century-old live oaks draped in Spanish moss. The finishing hole plays over water. On every major Top 100 list for thirty years.</p><p class="gc-p">From $79 · <a href="https://tpconline.teetimecentralonline.com/" target="_blank">Book Tee Time</a></p></div>
+      <div class="gc r"><p class="gc-n">TPC Myrtle Beach</p><p class="gc-l">Murrells Inlet · Par 72 · 6,950 yds · Slope 137</p><p class="gc-s">4.6 / 5 (830 reviews)</p><p class="gc-d">Tom Fazio design. Dustin Johnson's home course. Water on ten of eighteen. Five-star Golf Digest.</p><p class="gc-p">From $126 · <a href="https://tpconline.teetimecentralonline.com/?c=TPCM" target="_blank">Book Tee Time</a></p></div>
+      <div class="gc r"><p class="gc-n">True Blue Golf Club</p><p class="gc-l">Pawleys Island · Par 72 · 7,100 yds · Slope 140</p><p class="gc-s">4.6 / 5 (163 reviews)</p><p class="gc-d">Sister course to Caledonia. Golf Magazine's "Trips for Buddies" list. Designed for exactly what we're doing.</p><p class="gc-p">From $59 · <a href="https://tpconline.teetimecentralonline.com/" target="_blank">Book Tee Time</a></p></div>
+      <div class="gc r"><p class="gc-n">King's North at MB National</p><p class="gc-l">Myrtle Beach · Par 72 · Arnold Palmer Design</p><p class="gc-s">4.4 / 5 (799 reviews)</p><p class="gc-d">Arnold Palmer's island-green par-3. Consistently one of the most popular courses on the Grand Strand.</p><p class="gc-p">From $75 · <a href="https://tpconline.teetimecentralonline.com/?c=KING" target="_blank">Book Tee Time</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE WEEKEND -->
+<section class="sec" id="weekend">
+  <div class="ws">
+    <span class="ey r">The Weekend</span>
+    <h2 class="r">Thursday through <em>Sunday.</em></h2>
+    <div class="prose">
+      <p class="r"><strong>Thursday</strong> is arrival. Fly direct into MYR or drive six hours from Atlanta. Check in at three. The lagoon pool glows at dusk. First beers on the patio.</p>
+      <p class="r"><strong>Friday</strong> is Caledonia — twenty-five minutes south in Pawleys Island. The round the trip is built around. Afternoon is the pool, golden hour, the photograph someone frames. Friday night we cook in — two kitchens, fresh seafood from the inlet, nobody leaves the house.</p>
+      <p class="r"><strong>Saturday</strong> is TPC in the morning, the MarshWalk at night. The MarshWalk is a half-mile waterfront boardwalk in Murrells Inlet — eight restaurants, live music, open-air. Dead Dog Saloon. Drunken Jack's. Wicked Tuna. Saturday night runs as long as anyone lets it.</p>
+      <p class="r"><strong>Sunday</strong> is checkout at ten. Settle the bet. The goodbyes last a beat longer than they need to. Then the cars go north.</p>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- LOCK IN -->
+<section class="sec sec-dk" id="lockin">
+  <div class="w" style="max-width:560px">
+    <div style="text-align:center">
+      <span class="ey r">Lock In</span>
+      <h2 class="r">$200 deposit. <em>You're in.</em></h2>
+      <p class="r" style="color:var(--tx2);max-width:400px;margin:0 auto 32px;font-size:14px">Venmo $200 to lock your spot. Balance collected before the trip.</p>
+    </div>
+
+    <div class="r" style="display:flex;align-items:center;gap:20px;justify-content:center;margin-bottom:32px">
+      <div style="text-align:center"><span style="font-family:'Instrument Serif',serif;font-size:24px;color:var(--ac);display:block">1</span><span style="font-size:10px;color:var(--tx3)">Read</span></div>
+      <span style="color:var(--tx3)">→</span>
+      <div style="text-align:center"><span style="font-family:'Instrument Serif',serif;font-size:24px;color:var(--ac);display:block">2</span><span style="font-size:10px;color:var(--tx3)">Venmo $200</span></div>
+      <span style="color:var(--tx3)">→</span>
+      <div style="text-align:center"><span style="font-family:'Instrument Serif',serif;font-size:24px;color:var(--ac);display:block">3</span><span style="font-size:10px;color:var(--tx3)">You're in</span></div>
+    </div>
+
+    <div class="r pay-c">
+      <div class="venmo-btn" onclick="window.location.href='venmo://paycharge?txn=pay&recipients=Peyton-Edwards-1&amount=200&note=Lads+Trip+II';handleVenmo(event)" role="button" tabindex="0">PAY $200 VIA VENMO</div>
+      <p style="font-size:13px;color:var(--tx2);margin-bottom:6px">@Peyton-Edwards-1</p>
+      <button class="pay-btn" onclick="navigator.clipboard.writeText('@Peyton-Edwards-1');this.textContent='Copied';setTimeout(()=>this.textContent='Copy Handle',1500)">Copy Handle</button>
+      <p style="font-size:11px;color:var(--tx3);margin-top:14px">Memo: <span style="color:var(--tx2)">Your Name — Lads Trip II</span></p>
+    </div>
+
+    <div class="r" style="margin-top:32px;text-align:center">
+      <span class="ey" style="display:block;margin-bottom:12px">Roster</span>
+      <div class="roster" id="roster"></div>
+    </div>
+
+    <table class="pt r" style="margin-top:32px">
+      <tr><td>House</td><td>$239–318</td></tr>
+      <tr><td>Golf (2 rounds)</td><td>$140–205</td></tr>
+      <tr><td>Food, drinks, going out</td><td>~$200</td></tr>
+      <tr class="tot"><td>Estimated All-In</td><td>~$700</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <p class="ft-n r">II</p>
+  <p class="ft-l r">The sequel costs less than the original.<br>The golf is better. The pool has a waterfall.</p>
+  <p class="ft-m r">April 15–18, 2027 · North Myrtle Beach</p>
+  <a href="https://peytoned21.github.io/lads-trip-i/" target="_blank" class="ft-link r">Read The Lads Trip I →</a>
+</footer>
+
+<script>
+function handleVenmo(e){setTimeout(function(){window.open('https://venmo.com/Peyton-Edwards-1','_blank')},400)}
+
+const b=document.getElementById('prog');
+window.addEventListener('scroll',()=>{const h=document.documentElement;b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+
+function tick(){const t=new Date('2027-04-15T15:00:00-04:00')-new Date();if(t<=0)return;document.getElementById('cd-d').textContent=Math.floor(t/864e5);document.getElementById('cd-h').textContent=String(Math.floor(t%864e5/36e5)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor(t%36e5/6e4)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor(t%6e4/1e3)).padStart(2,'0')}tick();setInterval(tick,1000);
+
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');ro.unobserve(x.target)}})},{threshold:.03,rootMargin:'0px 0px -10px 0px'});
+document.querySelectorAll('.r').forEach(el=>{ro.observe(el);setTimeout(()=>el.classList.add('v'),2500)});
+
+const nav=document.getElementById('nav');
+new IntersectionObserver(e=>{e.forEach(x=>nav.classList.toggle('on',!x.isIntersecting))},{threshold:0}).observe(document.querySelector('.hero'));
+
+const secs=document.querySelectorAll('section[id]'),lnk=document.querySelectorAll('.nav-l a');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const id=x.target.id;lnk.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id))}})},{threshold:0,rootMargin:'-20% 0px -70% 0px'}).observe(s));
+lnk.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+const guys=['Peyton','Nathan','Trey','Dustin','Kunal','Miguel','Mack','Kevin','Gerry','Mike Yang','Tolliver','Chris Jones','Nick','Mike Barry','Connor','','','','',''];
+const paid=[];
+const rs=document.getElementById('roster');
+guys.forEach((g,i)=>{const d=document.createElement('div');const name=g||'Open';d.className='ro'+(paid.includes(g)&&g?' p':'');d.textContent=(paid.includes(g)&&g?'✓ ':'')+name;if(!g)d.style.opacity='.25';rs.appendChild(d)});
+</script>
+</body>
+</html>

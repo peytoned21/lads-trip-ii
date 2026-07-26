@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lads Trip II — Pawleys Island · April 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:title" content="The Lads Trip II — April 2027">
+<meta property="og:description" content="Pawleys Island. Beachfront. 1800s. Rocking chairs. Five minutes to Caledonia.">
+<meta property="og:image" content="https://peytoned21.github.io/lads-trip-ii/og-image.png">
+<meta property="og:url" content="https://peytoned21.github.io/lads-trip-ii/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf8f5;--sf:#fff;--sf2:#f3efe9;--bd:#e4ddd4;--bdl:#d4ccc2;--tx:#1a1612;--tx2:#4a4238;--tx3:#8a7e72;--ac:#2d5a3a;--ac2:#3a7a4e;--acd:rgba(45,90,58,.05);--gold:#9a7b4a;--gold2:#b8944a;--r:6px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.75;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(45,90,58,.15)}
+img{max-width:100%;display:block}
+a{color:var(--ac)}
+
+.w{max-width:1100px;margin:0 auto;padding:0 24px}
+.ws{max-width:680px;margin:0 auto;padding:0 24px}
+.ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);font-weight:400}
+h2{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:400;line-height:1.08;margin-bottom:16px;color:var(--tx)}
+h2 em{font-style:italic;color:var(--gold)}
+
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;background:var(--ac);z-index:9999;transition:width .06s linear}
+
+/* Hero */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/c9543e20-90bb-483e-b65d-7b30aff3c435.jpeg?im_w=1440') center/cover no-repeat}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,22,18,.4) 0%,rgba(26,22,18,.15) 30%,rgba(26,22,18,.55) 75%,rgba(26,22,18,.92) 100%)}
+.hero-c{position:relative;z-index:2;padding:0 clamp(24px,5vw,72px) clamp(48px,7vh,88px);max-width:800px}
+.hero-ey{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-bottom:20px;opacity:0;animation:fu .7s ease .2s forwards}
+.hero h1{font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(3.2rem,9vw,7rem);line-height:.88;color:#fff;margin-bottom:16px;opacity:0;animation:fu .7s ease .35s forwards}
+.hero h1 span{display:block;font-style:italic;color:var(--gold2)}
+.hero-sub{font-family:'Instrument Serif',serif;font-size:clamp(.95rem,1.8vw,1.2rem);font-style:italic;color:rgba(255,255,255,.6);max-width:440px;opacity:0;animation:fu .7s ease .5s forwards}
+.hero-cd{display:flex;gap:28px;margin-top:32px;opacity:0;animation:fu .7s ease .65s forwards}
+.cd-n{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3rem);color:#fff;line-height:1;display:block}
+.cd-l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:2px}
+.hero-cta{display:inline-block;margin-top:28px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);text-decoration:none;padding:12px 24px;border:1px solid rgba(184,148,74,.4);border-radius:var(--r);transition:all .15s;opacity:0;animation:fu .7s ease .85s forwards}
+.hero-cta:hover{background:rgba(184,148,74,.1)}
+@keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* Sections */
+.sec{padding:clamp(72px,10vh,110px) 0}
+.sec-warm{background:var(--sf2)}
+.dv{height:1px;background:var(--bd);max-width:1100px;margin:0 auto}
+
+/* Photos */
+.pg{display:grid;gap:3px;margin:40px 0}
+.pg img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+.pg-hero{grid-template-columns:3fr 2fr;grid-template-rows:300px 300px}
+.pg-hero .main{grid-row:1/3}
+.pg-3{grid-template-columns:1fr 1fr 1fr;grid-template-rows:240px}
+.pg-2{grid-template-columns:1fr 1fr;grid-template-rows:280px}
+@media(max-width:768px){.pg-hero{grid-template-columns:1fr;grid-template-rows:220px 180px 180px}.pg-hero .main{grid-row:auto}.pg-3{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px}.pg-2{grid-template-columns:1fr;grid-template-rows:220px 220px}}
+
+/* Prose */
+.prose p{font-size:16px;line-height:1.9;color:var(--tx2);margin-bottom:24px}
+.prose strong{color:var(--tx);font-weight:500}
+
+/* Quote */
+.qt{border-left:3px solid var(--ac);padding:20px 28px;margin:36px 0;background:var(--acd)}
+.qt p{font-family:'Instrument Serif',serif!important;font-size:18px!important;font-style:italic;color:var(--tx)!important;line-height:1.55!important;margin:0!important}
+.qt-a{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--ac);margin-top:8px;display:block}
+
+/* Two col */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:768px){.two{grid-template-columns:1fr;gap:28px}}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:var(--sf)}
+.st{padding:28px 16px;text-align:center;border-right:1px solid var(--bd)}
+.st:last-child{border-right:none}
+.st-v{font-family:'Instrument Serif',serif;font-size:clamp(1.6rem,3vw,2.2rem);display:block;color:var(--tx)}
+.st-l{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--tx3);margin-top:3px}
+@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}.st{border-bottom:1px solid var(--bd)}}
+
+/* Tags */
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:16px}
+.tg{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.05em;padding:4px 9px;border:1px solid var(--bd);border-radius:3px;color:var(--tx3);text-transform:uppercase}
+
+/* Price */
+.pt{width:100%;border-collapse:collapse;margin-top:24px}
+.pt td{padding:10px 0;border-bottom:1px solid var(--bd);font-size:13px}
+.pt td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;color:var(--tx)}
+.pt td:first-child{color:var(--tx2)}
+.pt .tot td{border-top:2px solid var(--ac);border-bottom:none;padding-top:14px;font-weight:600}
+.pt .tot td:last-child{color:var(--ac);font-size:18px}
+.ph{margin-top:14px;padding:14px 16px;background:var(--acd);border:1px solid rgba(45,90,58,.12);border-radius:var(--r);text-align:center}
+.ph-b{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ac);display:block}
+.ph-s{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx3);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+
+/* Golf */
+.gc-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:40px}
+.gc{padding:24px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);transition:border-color .15s}
+.gc:hover{border-color:var(--ac)}
+.gc.ft{border-color:var(--ac);background:linear-gradient(135deg,var(--sf) 0%,var(--acd) 100%)}
+.gc-fl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+.gc-n{font-family:'Instrument Serif',serif;font-size:18px;margin-bottom:3px}
+.gc-l{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.gc-s{color:var(--gold);font-size:12px;margin-bottom:6px}
+.gc-d{font-size:12px;color:var(--tx2);line-height:1.6}
+.gc-p{margin-top:12px;padding-top:12px;border-top:1px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ac)}
+.gc-p a{color:var(--ac)}
+
+/* Pay */
+.pay-c{padding:32px 28px;background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);text-align:center}
+.venmo-btn{display:block;width:100%;text-align:center;background:var(--ac);color:#fff;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;border:none;padding:18px 24px;border-radius:var(--r);cursor:pointer;transition:all .15s;margin-bottom:14px;text-decoration:none}
+.venmo-btn:hover{background:var(--ac2)}
+.pay-btn{background:var(--sf2);border:1px solid var(--bd);color:var(--tx3);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:4px;cursor:pointer;transition:all .15s}
+.pay-btn:hover{border-color:var(--ac);color:var(--ac)}
+
+/* Roster */
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:5px;margin-top:16px}
+.ro{padding:10px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.04em;text-align:center;border:1px solid var(--bd);background:var(--sf);color:var(--tx3)}
+.ro.p{border-color:rgba(45,90,58,.3);background:rgba(45,90,58,.05);color:var(--ac)}
+
+/* Timeline */
+.tl{margin-top:40px}
+.tl-d{display:grid;grid-template-columns:80px 1fr;gap:0 24px;position:relative}
+.tl-d::before{content:'';position:absolute;left:79px;top:28px;bottom:0;width:1px;background:var(--bd)}
+.tl-d:last-child::before{display:none}
+.tl-dl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ac);padding-top:6px;text-align:right;padding-right:24px}
+.tl-dc{padding-bottom:32px}
+.tl-i{position:relative;padding:6px 0 6px 20px;margin-bottom:2px}
+.tl-i::before{content:'';position:absolute;left:-5px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--ac);border:2px solid var(--bg);outline:1px solid var(--bd)}
+.tl-t{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx3);letter-spacing:.1em;text-transform:uppercase}
+.tl-a{font-family:'Instrument Serif',serif;font-size:17px;margin:2px 0;color:var(--tx)}
+.tl-n{font-size:12px;color:var(--tx3);line-height:1.55}
+@media(max-width:600px){.tl-d{grid-template-columns:56px 1fr;gap:0 12px}.tl-d::before{left:55px}}
+
+/* Footer */
+.ft{padding:80px 24px 40px;text-align:center;border-top:1px solid var(--bd)}
+.ft-n{font-family:'Instrument Serif',serif;font-size:clamp(80px,22vw,200px);color:var(--sf2);line-height:.8}
+.ft-l{font-family:'Instrument Serif',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-style:italic;color:var(--tx3);max-width:440px;margin:0 auto 24px}
+.ft-m{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--tx3);text-transform:uppercase}
+.ft-link{display:inline-block;margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);text-decoration:none;padding:8px 16px;border:1px solid var(--bd);border-radius:4px;transition:color .15s,border-color .15s}
+.ft-link:hover{color:var(--ac);border-color:var(--ac)}
+
+/* Reveal */
+.r{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.r.v{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <p class="hero-ey">Pawleys Island, South Carolina · April 15–18, 2027</p>
+    <h1>The Lads<br><span>Trip II</span></h1>
+    <p class="hero-sub">Beachfront. Historic. Five minutes to Caledonia.<br>Twenty-two rocking chairs. The ocean on one side. The creek on the other.</p>
+    <div class="hero-cd">
+      <div><span class="cd-n" id="cd-d">---</span><span class="cd-l">Days</span></div>
+      <div><span class="cd-n" id="cd-h">--</span><span class="cd-l">Hours</span></div>
+      <div><span class="cd-n" id="cd-m">--</span><span class="cd-l">Min</span></div>
+      <div><span class="cd-n" id="cd-s">--</span><span class="cd-l">Sec</span></div>
+    </div>
+    <a href="#lockin" class="hero-cta" onclick="event.preventDefault();document.getElementById('lockin').scrollIntoView({behavior:'smooth'})">Lock In Your Spot →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats r">
+  <div class="st"><span class="st-v">Apr 15–18</span><span class="st-l">Thu – Sun</span></div>
+  <div class="st"><span class="st-v">5 min</span><span class="st-l">To Caledonia</span></div>
+  <div class="st"><span class="st-v">5.0★</span><span class="st-l">Perfect Rating</span></div>
+  <div class="st"><span class="st-v">~$700</span><span class="st-l">Estimated All-In</span></div>
+</div>
+
+<!-- THE HOUSE -->
+<section class="sec" id="house">
+  <div class="w">
+    <span class="ey r">The House</span>
+    <h2 class="r">End of the <em>Rainbow</em></h2>
+    <p class="r" style="color:var(--tx2);max-width:560px">Beachfront · Pawleys Island Historic District · 7 Bedrooms · 18 Beds · National Register of Historic Places · Circa 1800s</p>
+
+    <div class="pg pg-hero r">
+      <img class="main" src="https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/1251ede1-e2d2-4404-a3a0-67e099d46224.jpeg?im_w=1440" alt="View of the house from the private dock">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/8a8db14a-439e-47d1-8647-ac2db42079d0.jpeg?im_w=720" alt="Private, direct access to the beach">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/c2036fb5-9033-4d3c-bb96-a44f80597931.jpeg?im_w=720" alt="Side porch — views of sunset over the creek">
+    </div>
+
+    <div class="pg pg-3 r">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/48b7382f-b91e-47a0-a49e-9368c1104dc4.jpeg?im_w=720" alt="Outdoor dining — our preferred table for all meals">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/27561a24-6239-48f6-90f8-1b99950e0b81.jpeg?im_w=720" alt="The Ocean Room — king bed, ocean view">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1368987737903161476/original/bcd68193-5edf-4ea1-9621-cb20e545110a.jpeg?im_w=720" alt="Private creek dock — sunset over the marsh">
+    </div>
+
+    <div class="two" style="margin-top:48px">
+      <div>
+        <div class="prose">
+          <p class="r"><strong>Once the summer parsonage for All Saints Episcopal Church.</strong> Original floorboards. Fifteen-foot ceilings. Spanish moss hanging over live oaks in the yard. Twenty-two rocking chairs on a porch the length of the house. On one side — the Atlantic, fifty feet away. On the other — the creek, a private dock, the sunset.</p>
+          <p class="r"><strong>Five minutes to Caledonia.</strong> Ten to True Blue. Fifteen to the MarshWalk. You come back from the round and you're home before the coffee's cold. The afternoon isn't lost to a commute. It belongs to the porch.</p>
+          <p class="r">Linens included. Beach towels included. Kayaks, crabbing gear, outdoor gas boiler for seafood boils — all included. 5.0 rating from 17 reviews. Top 5% of all Airbnb listings.</p>
+        </div>
+        <div class="qt r">
+          <p>"This home was absolutely everything we dreamed it would be to host a private dinner for 22 and a weekend getaway!"</p>
+          <span class="qt-a">— Bennett, April 2026</span>
+        </div>
+        <div class="tags r">
+          <span class="tg">Beachfront</span><span class="tg">Creek Dock</span><span class="tg">Historic 1800s</span><span class="tg">7 Bedrooms</span><span class="tg">18 Beds</span><span class="tg">Linens Included</span><span class="tg">Seafood Boil Kit</span><span class="tg">Kayaks</span><span class="tg">22 Rocking Chairs</span>
+        </div>
+      </div>
+      <div>
+        <span class="ey r">Confirmed · Apr 15–18, 2027</span>
+        <table class="pt r">
+          <tr><td>3 nights (all fees included)</td><td>$4,451</td></tr>
+          <tr><td>Linens & towels</td><td>Included</td></tr>
+          <tr class="tot"><td>Total</td><td>$4,451</td></tr>
+        </table>
+        <div class="ph r"><span class="ph-b">$297</span><span class="ph-s">Per person · 15 guys</span></div>
+        <p class="r" style="font-size:11px;color:var(--tx3);margin-top:10px;text-align:center">Full refund if cancelled before March 2027</p>
+        <div style="margin-top:20px" class="r">
+          <a href="https://www.airbnb.com/rooms/1368987737903161476?adults=16&check_in=2027-04-15&check_out=2027-04-18" target="_blank" style="display:block;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);text-decoration:none;padding:12px;border:1px solid var(--bd);border-radius:var(--r);transition:border-color .15s" onmouseover="this.style.borderColor='var(--ac)'" onmouseout="this.style.borderColor='var(--bd)'">View on Airbnb</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- GOLF -->
+<section class="sec sec-warm" id="golf">
+  <div class="w">
+    <span class="ey r">Golf</span>
+    <h2 class="r">Five minutes <em>to the first tee.</em></h2>
+    <p class="r" style="color:var(--tx2);max-width:500px">Caledonia is across the causeway. You're on the course before the coffee's cold. That changes the entire rhythm of the weekend.</p>
+
+    <div class="pg pg-2 r">
+      <img src="https://admin.tpcmyrtlebeach.com/wp-content/uploads/2026/04/DJI_0723-HDR-1-copy-scaled.jpg" alt="TPC Myrtle Beach — sunrise drone shot">
+      <img src="https://admin.tpcmyrtlebeach.com/wp-content/uploads/2026/04/TPC-17th-scaled.jpg" alt="TPC Myrtle Beach 17th hole">
+    </div>
+
+    <div class="gc-g">
+      <div class="gc ft r"><p class="gc-fl">5 Minutes Away</p><p class="gc-n">Caledonia Golf & Fish Club</p><p class="gc-l">Pawleys Island · Par 72 · 6,526 yds · Slope 135</p><p class="gc-s">★★★★★ 4.5 (627 reviews) · Top 100 Since 1994</p><p class="gc-d">Across the causeway. Century-old live oaks draped in Spanish moss. The finishing hole over water. Thirty years on every Top 100 list.</p><p class="gc-p">~$100–150 · <a href="https://tpconline.teetimecentralonline.com/" target="_blank">Book Tee Time</a></p></div>
+      <div class="gc r"><p class="gc-n">True Blue Golf Club</p><p class="gc-l">Pawleys Island · Par 72 · 7,100 yds · Slope 140</p><p class="gc-s">★★★★★ 4.6 (163 reviews) · Golf Mag "Trips for Buddies"</p><p class="gc-d">Ten minutes. Sister course to Caledonia. Literally designed for groups like ours.</p><p class="gc-p">~$80–120 · <a href="https://tpconline.teetimecentralonline.com/" target="_blank">Book Tee Time</a></p></div>
+      <div class="gc r"><p class="gc-n">TPC Myrtle Beach</p><p class="gc-l">Murrells Inlet · Par 72 · 6,950 yds · Slope 137</p><p class="gc-s">★★★★★ 4.6 (830 reviews) · Tom Fazio · 5-Star Golf Digest</p><p class="gc-d">Twenty-five minutes north. Dustin Johnson's home course. Water on ten of eighteen.</p><p class="gc-p">~$130–180 · <a href="https://tpconline.teetimecentralonline.com/?c=TPCM" target="_blank">Book Tee Time</a></p></div>
+      <div class="gc r"><p class="gc-n">King's North at MB National</p><p class="gc-l">Myrtle Beach · Par 72 · Arnold Palmer Design</p><p class="gc-s">★★★★ 4.4 (799 reviews)</p><p class="gc-d">Arnold Palmer's island-green par-3. Thirty minutes. The round where someone hits the shot.</p><p class="gc-p">~$90–130 · <a href="https://tpconline.teetimecentralonline.com/?c=KING" target="_blank">Book Tee Time</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE WEEKEND -->
+<section class="sec" id="weekend">
+  <div class="ws">
+    <span class="ey r">The Weekend</span>
+    <h2 class="r">Thursday through <em>Sunday.</em></h2>
+    <div class="prose">
+      <p class="r"><strong>Thursday</strong> is arrival. Cross the causeway onto Pawleys Island and find a house that has been there since before the Civil War. Bags inside. First beers on the porch. The rocking chairs fill up. The creek catches the last light.</p>
+      <p class="r"><strong>Friday</strong> is Caledonia — five minutes across the causeway. Back by one. The afternoon is the beach, the porch, the kayaks on the creek. Friday night is the boil — the gas burner's on the porch, the shrimp comes from the boats a mile away, everyone eats together at the picnic table on the screened porch looking at the creek at dusk.</p>
+      <p class="r"><strong>Saturday</strong> is TPC — twenty-five minutes north. Back by two. The MarshWalk is fifteen minutes away. Saturday night is Dead Dog Saloon, Wicked Tuna, the boardwalk at sunset. Short Uber home.</p>
+      <p class="r"><strong>Sunday</strong> is checkout. Coffee on the porch. The ocean fifty feet away. The rocking chairs creak. Then the cars leave.</p>
+    </div>
+  </div>
+</section>
+
+<div class="dv"></div>
+
+<!-- LOCK IN -->
+<section class="sec sec-warm" id="lockin">
+  <div class="w" style="max-width:560px">
+    <div style="text-align:center">
+      <span class="ey r">Lock In</span>
+      <h2 class="r">$200 deposit. <em>You're in.</em></h2>
+      <p class="r" style="color:var(--tx2);max-width:400px;margin:0 auto 32px;font-size:14px">Venmo $200 to lock your spot. Remaining balance settled during or after the trip.</p>
+    </div>
+
+    <div class="r" style="display:flex;align-items:center;gap:20px;justify-content:center;margin-bottom:32px">
+      <div style="text-align:center"><span style="font-family:'Instrument Serif',serif;font-size:24px;color:var(--ac);display:block">1</span><span style="font-size:10px;color:var(--tx3)">Read</span></div>
+      <span style="color:var(--tx3)">→</span>
+      <div style="text-align:center"><span style="font-family:'Instrument Serif',serif;font-size:24px;color:var(--ac);display:block">2</span><span style="font-size:10px;color:var(--tx3)">Venmo $200</span></div>
+      <span style="color:var(--tx3)">→</span>
+      <div style="text-align:center"><span style="font-family:'Instrument Serif',serif;font-size:24px;color:var(--ac);display:block">3</span><span style="font-size:10px;color:var(--tx3)">You're in</span></div>
+    </div>
+
+    <div class="r pay-c">
+      <div class="venmo-btn" onclick="window.location.href='venmo://paycharge?txn=pay&recipients=Peyton-Edwards-1&amount=200&note=Lads+Trip+II';handleVenmo(event)" role="button" tabindex="0">PAY $200 VIA VENMO</div>
+      <p style="font-size:13px;color:var(--tx2);margin-bottom:6px">@Peyton-Edwards-1</p>
+      <button class="pay-btn" onclick="navigator.clipboard.writeText('@Peyton-Edwards-1');this.textContent='Copied';setTimeout(()=>this.textContent='Copy Handle',1500)">Copy Handle</button>
+      <p style="font-size:11px;color:var(--tx3);margin-top:14px">Memo: <span style="color:var(--tx2)">Your Name — Lads Trip II</span></p>
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Lads+Trip+II&dates=20270415T150000/20270418T100000&location=End+of+the+Rainbow,+Myrtle+Avenue,+Pawleys+Island,+SC&details=Pawleys+Island.+Beachfront.+peytoned21.github.io/lads-trip-ii" target="_blank" style="display:block;margin-top:16px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);text-decoration:none;padding:10px;border:1px solid var(--bd);border-radius:var(--r);transition:color .15s,border-color .15s" onmouseover="this.style.color='var(--ac)';this.style.borderColor='var(--ac)'" onmouseout="this.style.color='';this.style.borderColor=''">+ Add to Google Calendar</a>
+    </div>
+
+    <div class="r" style="margin-top:32px;text-align:center">
+      <span class="ey" style="display:block;margin-bottom:12px">Roster</span>
+      <div class="roster" id="roster"></div>
+    </div>
+
+    <table class="pt r" style="margin-top:32px">
+      <tr><td>House</td><td>~$297</td></tr>
+      <tr><td>Golf (2 rounds)</td><td>$200–300</td></tr>
+      <tr><td>Food, drinks, going out</td><td>~$200</td></tr>
+      <tr class="tot"><td>Estimated All-In</td><td>~$700</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <p class="ft-n r">II</p>
+  <p class="ft-l r">The porch. The creek. The rocking chairs at dusk.<br>Five minutes to the first tee.</p>
+  <p class="ft-m r">April 15–18, 2027 · Pawleys Island</p>
+  <a href="https://peytoned21.github.io/lads-trip-i/" target="_blank" class="ft-link r">Read The Lads Trip I →</a>
+</footer>
+
+<script>
+function handleVenmo(e){setTimeout(function(){window.open('https://venmo.com/Peyton-Edwards-1','_blank')},400)}
+
+const b=document.getElementById('prog');
+window.addEventListener('scroll',()=>{const h=document.documentElement;b.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+
+function tick(){const t=new Date('2027-04-15T15:00:00-04:00')-new Date();if(t<=0)return;document.getElementById('cd-d').textContent=Math.floor(t/864e5);document.getElementById('cd-h').textContent=String(Math.floor(t%864e5/36e5)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor(t%36e5/6e4)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor(t%6e4/1e3)).padStart(2,'0')}tick();setInterval(tick,1000);
+
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');ro.unobserve(x.target)}})},{threshold:.03,rootMargin:'0px 0px -10px 0px'});
+document.querySelectorAll('.r').forEach(el=>{ro.observe(el);setTimeout(()=>el.classList.add('v'),2500)});
+
+const guys=['Peyton','Nathan','Trey','Dustin','Kunal','Miguel','Mack','Kevin','Gerry','Mike Yang','Tolliver','Chris Jones','Nick','Mike Barry','Connor','','','','',''];
+const paid=['Peyton'];
+const rs=document.getElementById('roster');
+guys.forEach((g,i)=>{const d=document.createElement('div');const name=g||'Open';d.className='ro'+(paid.includes(g)&&g?' p':'');d.textContent=(paid.includes(g)&&g?'✓ ':'')+name;if(!g)d.style.opacity='.25';rs.appendChild(d)});
+</script>
+</body>
+</html>

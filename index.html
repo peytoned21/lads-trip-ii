@@ -326,7 +326,7 @@ const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.targe
 document.querySelectorAll('.r').forEach(el=>{ro.observe(el);setTimeout(()=>el.classList.add('v'),2500)});
 
 const guys=['Peyton','Nathan','Trey','Dustin','Kunal','Miguel','Mack','Kevin','Gerry','Mike Yang','Tolliver','Chris Jones','Nick','Mike Barry','Connor','','','','',''];
-const paid=['Peyton'];
+const paid=['Peyton','Chris Jones','Connor'];
 const rs=document.getElementById('roster');
 guys.forEach((g,i)=>{const d=document.createElement('div');const name=g||'Open';d.className='ro'+(paid.includes(g)&&g?' p':'');d.textContent=(paid.includes(g)&&g?'✓ ':'')+name;if(!g)d.style.opacity='.25';rs.appendChild(d)});
 </script>
